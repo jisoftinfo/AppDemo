@@ -21,7 +21,7 @@ namespace Swift.PLWeb.Controllers
             return View();
         }
 
-        public JsonResult Login(string EmpName, string Password)
+        public JsonResult EmpLogin(string EmpName, string Password)
         {            
             try
             {
@@ -30,6 +30,7 @@ namespace Swift.PLWeb.Controllers
                 var db = new DemoEntities();
                 var qry = from am in db.AccountMs
                           join amp in db.AccountMPasswords on am.UID equals amp.AccountM_UID
+                          where am.AccountTypeID==800 && am.AccountName==EmpName && amp.Password==Password
                           select new { am.UID, am.AccountCode};
 
                 var d = qry.FirstOrDefault();

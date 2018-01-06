@@ -18,36 +18,50 @@
     
 </head>
 <body>
-    <div ng-app="DemoApp">
-        <div class="panel panel-info">
-            <div class="panel-heading"><h2>Login</h2></div>
-            <div class="panel-body">
-                <div class="input-group input-group-lg" style="margin-top:10px">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input type="text" class="form-control" ng-model="LoginId" placeholder="Login Id" />
-                </div>
-                <div class="input-group input-group-lg" style="margin-top:10px">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input type="password" class="form-control" ng-model="Password" placeholder="Password" />
-                </div>
-                <div class="pull-right" style="margin-top:10px">
-                    <button class="btn btn-info text-uppercase" ng-click="Login()">Login</button>
+    <div ng-app="AppDemo">
+        <div ng-controller="Login" class="container-fluid" style="margin-top:50px">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h2>Login</h2></div>
+                        <div class="panel-body">
+                            <div class="input-group input-group-lg" style="margin-top:10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" class="form-control" ng-model="emp.EmpName" placeholder="Login Id" />
+                            </div>
+                            <div class="input-group input-group-lg" style="margin-top:10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" class="form-control" ng-model="emp.Password" placeholder="Password" />
+                            </div>
+                            <div class="pull-right" style="margin-top:10px">
+                                <button class="btn btn-info text-uppercase" ng-click="btnLoginClick()">Login</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </div>
     <script>
-        var appWA = angular.module("DemoApp", []);
+        var app = angular.module("AppDemo", []);
         
-        appWA.controller('Login', function ($scope, $http) {
-
-            $scope.Login = function () {
-                if (!$scope.LoginId || $scope.LoginId == '') {
+        app.controller('Login', function ($scope, $http) {
+            $scope.btnLoginClick = function () {
+                if (!$scope.emp.EmpName || $scope.emp.EmpName == '') {
                     alert('Please Enter the Login Id');
-                } else if (!$scope.Password || $scope.Password == '') {
+                } else if (!$scope.emp.Password || $scope.emp.Password == '') {
                     alert('Please Enter the Password');
                 } else {
-                    
+                    $http.post('/Home/EmpLogin', $scope.emp).then(function (res) {
+                        console.log(res);
+                        if (res.data.IsLogin) {
+                            window.location = "/Home/Index";
+                        } else {
+                            alert(res.data.ErrMsg);
+                        }
+                    });
                 }
             };
         });
