@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    
+</head>
+<body>
+    <div ng-app="DemoApp">
+        <div class="panel panel-info">
+            <div class="panel-heading"><h2>Login</h2></div>
+            <div class="panel-body">
+                <div class="input-group input-group-lg" style="margin-top:10px">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" ng-model="LoginId" placeholder="Login Id" />
+                </div>
+                <div class="input-group input-group-lg" style="margin-top:10px">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" ng-model="Password" placeholder="Password" />
+                </div>
+                <div class="pull-right" style="margin-top:10px">
+                    <button class="btn btn-info text-uppercase" ng-click="Login()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var appWA = angular.module("DemoApp", []);
+        
+        appWA.controller('Login', function ($scope, $http) {
+
+            $scope.Login = function () {
+                if (!$scope.LoginId || $scope.LoginId == '') {
+                    alert('Please Enter the Login Id');
+                } else if (!$scope.Password || $scope.Password == '') {
+                    alert('Please Enter the Password');
+                } else {
+                    
+                }
+            };
+        });
+        
+    </script>
+  
+</body>
+</html>

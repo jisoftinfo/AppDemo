@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountM">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BranchId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountTypeID" Type="int" Nullable="false" />
+          <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MainHead" Type="bit" Nullable="false" />
+          <Property Name="IsFixed" Type="bit" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address4" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address5" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AreaID" Type="int" Nullable="false" />
+          <Property Name="Debit_CreditLimit" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TNGSTNO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TNGSTDate" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CSTNO" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CSTDate" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="DutyType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DutyPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DutyCalcMethod" Type="int" Nullable="false" />
+          <Property Name="PrimaryID" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="AddlSpecification1" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AddlSpecification2" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AddlSpecification3" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AddlSpecification4" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CostPerHour" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MaxUtilizedHour" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+          <Property Name="ExciseEccNo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ExciseZone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExciseRange" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExciseWareHouse" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsGroup" Type="bit" Nullable="false" />
+          <Property Name="HLevel" Type="int" Nullable="false" />
+          <Property Name="BSPLTypeM_UID" Type="int" Nullable="false" />
+          <Property Name="Debit_CreditDays" Type="int" Nullable="false" />
+          <Property Name="Zone_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Region_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Area_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ResponsibleEmployee_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BranchCode" Type="int" Nullable="false" />
+          <Property Name="CurrencyId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CurrencyRate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Pincode" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="GroupId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LongAccountName" Type="varchar" MaxLength="115" Nullable="false" />
+          <Property Name="TaxTypeId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PANNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsCreditDaysApplicable" Type="bit" Nullable="false" />
+          <Property Name="TDSPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TDSSurPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PriceListM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountMPassword">
+          <Key>
+            <PropertyRef Name="AccountM_UID" />
+          </Key>
+          <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DemoModelStoreContainer">
+          <EntitySet Name="AccountM" EntityType="Self.AccountM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountMPassword" EntityType="Self.AccountMPassword" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountM">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BranchId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountTypeID" Type="Int32" Nullable="false" />
+          <Property Name="AccountM_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MainHead" Type="Boolean" Nullable="false" />
+          <Property Name="IsFixed" Type="Boolean" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AreaID" Type="Int32" Nullable="false" />
+          <Property Name="Debit_CreditLimit" Type="Decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TNGSTNO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TNGSTDate" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CSTNO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CSTDate" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DutyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DutyPer" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DutyCalcMethod" Type="Int32" Nullable="false" />
+          <Property Name="PrimaryID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddlSpecification1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddlSpecification2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddlSpecification3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddlSpecification4" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CostPerHour" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MaxUtilizedHour" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="ExciseEccNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExciseZone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExciseRange" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExciseWareHouse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsGroup" Type="Boolean" Nullable="false" />
+          <Property Name="HLevel" Type="Int32" Nullable="false" />
+          <Property Name="BSPLTypeM_UID" Type="Int32" Nullable="false" />
+          <Property Name="Debit_CreditDays" Type="Int32" Nullable="false" />
+          <Property Name="Zone_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Region_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Area_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ResponsibleEmployee_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BranchCode" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CurrencyRate" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LongAccountName" Type="String" MaxLength="115" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxTypeId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PANNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsCreditDaysApplicable" Type="Boolean" Nullable="false" />
+          <Property Name="TDSPer" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TDSSurPer" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PriceListM_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountMPassword">
+          <Key>
+            <PropertyRef Name="AccountM_UID" />
+          </Key>
+          <Property Name="AccountM_UID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DemoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountMs" EntityType="Self.AccountM" />
+          <EntitySet Name="AccountMPasswords" EntityType="Self.AccountMPassword" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemoModelStoreContainer" CdmEntityContainer="DemoEntities">
+          <EntitySetMapping Name="AccountMs">
+            <EntityTypeMapping TypeName="DemoModel.AccountM">
+              <MappingFragment StoreEntitySet="AccountM">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
+                <ScalarProperty Name="AccountM_UID" ColumnName="AccountM_UID" />
+                <ScalarProperty Name="MainHead" ColumnName="MainHead" />
+                <ScalarProperty Name="IsFixed" ColumnName="IsFixed" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Address5" ColumnName="Address5" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="Debit_CreditLimit" ColumnName="Debit_CreditLimit" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="TNGSTNO" ColumnName="TNGSTNO" />
+                <ScalarProperty Name="TNGSTDate" ColumnName="TNGSTDate" />
+                <ScalarProperty Name="CSTNO" ColumnName="CSTNO" />
+                <ScalarProperty Name="CSTDate" ColumnName="CSTDate" />
+                <ScalarProperty Name="DutyType" ColumnName="DutyType" />
+                <ScalarProperty Name="DutyPer" ColumnName="DutyPer" />
+                <ScalarProperty Name="DutyCalcMethod" ColumnName="DutyCalcMethod" />
+                <ScalarProperty Name="PrimaryID" ColumnName="PrimaryID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AddlSpecification1" ColumnName="AddlSpecification1" />
+                <ScalarProperty Name="AddlSpecification2" ColumnName="AddlSpecification2" />
+                <ScalarProperty Name="AddlSpecification3" ColumnName="AddlSpecification3" />
+                <ScalarProperty Name="AddlSpecification4" ColumnName="AddlSpecification4" />
+                <ScalarProperty Name="CostPerHour" ColumnName="CostPerHour" />
+                <ScalarProperty Name="MaxUtilizedHour" ColumnName="MaxUtilizedHour" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="ExciseEccNo" ColumnName="ExciseEccNo" />
+                <ScalarProperty Name="ExciseZone" ColumnName="ExciseZone" />
+                <ScalarProperty Name="ExciseRange" ColumnName="ExciseRange" />
+                <ScalarProperty Name="ExciseWareHouse" ColumnName="ExciseWareHouse" />
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+                <ScalarProperty Name="HLevel" ColumnName="HLevel" />
+                <ScalarProperty Name="BSPLTypeM_UID" ColumnName="BSPLTypeM_UID" />
+                <ScalarProperty Name="Debit_CreditDays" ColumnName="Debit_CreditDays" />
+                <ScalarProperty Name="Zone_UID" ColumnName="Zone_UID" />
+                <ScalarProperty Name="Region_UID" ColumnName="Region_UID" />
+                <ScalarProperty Name="Area_UID" ColumnName="Area_UID" />
+                <ScalarProperty Name="ResponsibleEmployee_UID" ColumnName="ResponsibleEmployee_UID" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="CurrencyRate" ColumnName="CurrencyRate" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="LongAccountName" ColumnName="LongAccountName" />
+                <ScalarProperty Name="TaxTypeId" ColumnName="TaxTypeId" />
+                <ScalarProperty Name="PANNo" ColumnName="PANNo" />
+                <ScalarProperty Name="IsCreditDaysApplicable" ColumnName="IsCreditDaysApplicable" />
+                <ScalarProperty Name="TDSPer" ColumnName="TDSPer" />
+                <ScalarProperty Name="TDSSurPer" ColumnName="TDSSurPer" />
+                <ScalarProperty Name="PriceListM_UID" ColumnName="PriceListM_UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountMPasswords">
+            <EntityTypeMapping TypeName="DemoModel.AccountMPassword">
+              <MappingFragment StoreEntitySet="AccountMPassword">
+                <ScalarProperty Name="AccountM_UID" ColumnName="AccountM_UID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
