@@ -12,6 +12,8 @@ namespace Swift.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DemoEntities : DbContext
     {
@@ -27,5 +29,15 @@ namespace Swift.DAL
     
         public virtual DbSet<AccountM> AccountMs { get; set; }
         public virtual DbSet<AccountMPassword> AccountMPasswords { get; set; }
+        public virtual DbSet<ViewCustomerDetail> ViewCustomerDetails { get; set; }
+    
+        public virtual ObjectResult<SP_CustomerwiseProductList_Result> SP_CustomerwiseProductList(Nullable<decimal> custUId)
+        {
+            var custUIdParameter = custUId.HasValue ?
+                new ObjectParameter("CustUId", custUId) :
+                new ObjectParameter("CustUId", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CustomerwiseProductList_Result>("SP_CustomerwiseProductList", custUIdParameter);
+        }
     }
 }

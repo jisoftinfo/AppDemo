@@ -1,0 +1,76 @@
+﻿@model Swift.DAL.ViewCustomerDetail
+
+@{
+    ViewBag.Title = "Customer Order";
+}
+
+<div ng-app="AppDemo">
+    <div ng-controller="CustomerOrder" class="container-fluid" style="margin-top:50px">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h2>Customer Order</h2></div>
+                    <div class="panel-body">                        
+                        <dif class="form-inline">
+                            <div class="form-group">
+                                <label>Order Date</label>
+                                <input type="date" class="form-control" ng-model="SO.OrderDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <input type="text" readonly class="form-control" value="@Model.AccountName">
+                            </div>
+                        </dif>
+                        
+                        <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ItemCode</th>
+                                    <th>ItemName</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in ProductList | filter : SearchText | orderBy:'x.ItemCode'">
+                                    <td><button ng-click="ProductSelect(x)"><span class="glyphicon glyphicon-ok"></span></button></td>
+                                    <td ng-bind="x.ItemCode"></td>
+                                    <td ng-bind="x.ItemName"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">Total Customers: {{ProductList.length}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+        var app = angular.module("AppDemo", []);
+
+    app.controller('CustomerOrder', function ($scope, $http) {
+        $scope.SO = {};
+        $scope.SO.CustomerUID = @Model.UID;
+        $scope.SO.OrderDate = new Date();
+        $scope.ProductSelect = function (x) {
+            console.log(x);
+        };
+
+        $scope.ProductList = [];
+        $http.get('/Home/CustomerProductList?UID=' + $scope.SO.CustomerUID).then(function (res) {
+            console.log(res);
+            $scope.ProductList = res.data;
+        });
+
+    });
+
+
+
+</script>

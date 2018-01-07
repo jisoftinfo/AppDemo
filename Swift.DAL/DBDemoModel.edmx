@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccountM">
           <Key>
             <PropertyRef Name="UID" />
@@ -79,12 +79,82 @@
           <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewCustomerDetail">
+          <Key>
+            <PropertyRef Name="UID" />
+            <PropertyRef Name="AccountName" />
+            <PropertyRef Name="GSTIN" />
+            <PropertyRef Name="AccountM_UID" />
+            <PropertyRef Name="AccountCode" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="PANNo" />
+            <PropertyRef Name="Fax" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="Debit_CreditLimit" />
+            <PropertyRef Name="Debit_CreditDays" />
+            <PropertyRef Name="Address1" />
+            <PropertyRef Name="Address2" />
+            <PropertyRef Name="Address3" />
+            <PropertyRef Name="Address4" />
+            <PropertyRef Name="Address5" />
+            <PropertyRef Name="Pincode" />
+          </Key>
+          <Property Name="UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GSTIN" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PANNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Debit_CreditLimit" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Debit_CreditDays" Type="int" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address4" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address5" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pincode" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ExecutiveName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Function Name="SP_CustomerwiseProductList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustUId" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="DemoModelStoreContainer">
           <EntitySet Name="AccountM" EntityType="Self.AccountM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountMPassword" EntityType="Self.AccountMPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewCustomerDetail" EntityType="Self.ViewCustomerDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewCustomerDetail].[UID] AS [UID], 
+    [ViewCustomerDetail].[AccountName] AS [AccountName], 
+    [ViewCustomerDetail].[GSTIN] AS [GSTIN], 
+    [ViewCustomerDetail].[AccountM_UID] AS [AccountM_UID], 
+    [ViewCustomerDetail].[AccountCode] AS [AccountCode], 
+    [ViewCustomerDetail].[Category] AS [Category], 
+    [ViewCustomerDetail].[Phone] AS [Phone], 
+    [ViewCustomerDetail].[Mobile] AS [Mobile], 
+    [ViewCustomerDetail].[PANNo] AS [PANNo], 
+    [ViewCustomerDetail].[Fax] AS [Fax], 
+    [ViewCustomerDetail].[email] AS [email], 
+    [ViewCustomerDetail].[Debit_CreditLimit] AS [Debit_CreditLimit], 
+    [ViewCustomerDetail].[Debit_CreditDays] AS [Debit_CreditDays], 
+    [ViewCustomerDetail].[Address1] AS [Address1], 
+    [ViewCustomerDetail].[Address2] AS [Address2], 
+    [ViewCustomerDetail].[Address3] AS [Address3], 
+    [ViewCustomerDetail].[Address4] AS [Address4], 
+    [ViewCustomerDetail].[Address5] AS [Address5], 
+    [ViewCustomerDetail].[Pincode] AS [Pincode], 
+    [ViewCustomerDetail].[ExecutiveName] AS [ExecutiveName]
+    FROM [dbo].[ViewCustomerDetail] AS [ViewCustomerDetail]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -165,7 +235,70 @@
         <EntityContainer Name="DemoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccountMs" EntityType="Self.AccountM" />
           <EntitySet Name="AccountMPasswords" EntityType="Self.AccountMPassword" />
+          <EntitySet Name="ViewCustomerDetails" EntityType="DemoModel.ViewCustomerDetail" />
+          <FunctionImport Name="SP_CustomerwiseProductList" ReturnType="Collection(DemoModel.SP_CustomerwiseProductList_Result)">
+            <Parameter Name="CustUId" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="ViewCustomerDetail">
+          <Key>
+            <PropertyRef Name="UID" />
+            <PropertyRef Name="AccountName" />
+            <PropertyRef Name="GSTIN" />
+            <PropertyRef Name="AccountM_UID" />
+            <PropertyRef Name="AccountCode" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="PANNo" />
+            <PropertyRef Name="Fax" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="Debit_CreditLimit" />
+            <PropertyRef Name="Debit_CreditDays" />
+            <PropertyRef Name="Address1" />
+            <PropertyRef Name="Address2" />
+            <PropertyRef Name="Address3" />
+            <PropertyRef Name="Address4" />
+            <PropertyRef Name="Address5" />
+            <PropertyRef Name="Pincode" />
+          </Key>
+          <Property Name="UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AccountName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GSTIN" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AccountM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AccountCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PANNo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Debit_CreditLimit" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <Property Name="Debit_CreditDays" Type="Int32" Nullable="false" />
+          <Property Name="Address1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address3" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address4" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address5" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Pincode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ExecutiveName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="SP_CustomerwiseProductList_Result">
+          <Property Type="String" Name="AccountCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="AccountName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ItemCode" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="ItemName" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="DrawingNo" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="DrawingRevisionNo" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="Category" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="UOM" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="CGSTUID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="SGSTUID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="IGSTUID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="CGSTPer" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="SGSTPer" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="IGSTPer" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountPer" Nullable="false" Precision="18" Scale="3" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -248,6 +381,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ViewCustomerDetails">
+            <EntityTypeMapping TypeName="DemoModel.ViewCustomerDetail">
+              <MappingFragment StoreEntitySet="ViewCustomerDetail">
+                <ScalarProperty Name="ExecutiveName" ColumnName="ExecutiveName" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="Address5" ColumnName="Address5" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Debit_CreditDays" ColumnName="Debit_CreditDays" />
+                <ScalarProperty Name="Debit_CreditLimit" ColumnName="Debit_CreditLimit" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="PANNo" ColumnName="PANNo" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="AccountM_UID" ColumnName="AccountM_UID" />
+                <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_CustomerwiseProductList" FunctionName="DemoModel.Store.SP_CustomerwiseProductList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DemoModel.SP_CustomerwiseProductList_Result">
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="DrawingNo" ColumnName="DrawingNo" />
+                <ScalarProperty Name="DrawingRevisionNo" ColumnName="DrawingRevisionNo" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="CGSTUID" ColumnName="CGSTUID" />
+                <ScalarProperty Name="SGSTUID" ColumnName="SGSTUID" />
+                <ScalarProperty Name="IGSTUID" ColumnName="IGSTUID" />
+                <ScalarProperty Name="CGSTPer" ColumnName="CGSTPer" />
+                <ScalarProperty Name="SGSTPer" ColumnName="SGSTPer" />
+                <ScalarProperty Name="IGSTPer" ColumnName="IGSTPer" />
+                <ScalarProperty Name="DiscountPer" ColumnName="DiscountPer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

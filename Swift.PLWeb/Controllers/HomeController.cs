@@ -15,6 +15,39 @@ namespace Swift.PLWeb.Controllers
         {
             return View();
         }
+        public ActionResult Product()
+        {
+            return View();
+        }
+        public ActionResult Customer()
+        {
+            return View();
+        }
+
+        public JsonResult CustomerList()
+        {
+            var db = new DemoEntities();
+            var lst = db.ViewCustomerDetails.Select(x => new { x.UID, x.AccountName, x.AccountCode });
+            var r = Json(lst,JsonRequestBehavior.AllowGet);
+            r.MaxJsonLength = int.MaxValue;
+            return r;
+        }
+
+        public JsonResult CustomerProductList(decimal UID)
+        {
+            var db = new DemoEntities();
+            var lst = db.SP_CustomerwiseProductList(UID).ToList();
+            var r = Json(lst, JsonRequestBehavior.AllowGet);
+            r.MaxJsonLength = int.MaxValue;
+            return r;
+        }
+
+        public ActionResult CustomerOrder(decimal UID)
+        {
+            var db = new DemoEntities();            
+            var cust = db.ViewCustomerDetails.Where(x => x.UID == UID).FirstOrDefault();
+            return View(cust);
+        }
 
         public ActionResult Login()
         {
@@ -54,5 +87,6 @@ namespace Swift.PLWeb.Controllers
                 return r;
             }            
         }
+
     }
 }

@@ -7,6 +7,7 @@
       <Diagram DiagramId="04331c6cd79f45c49df998b55ede50eb" Name="Diagram1" ZoomLevel="48">
         <EntityTypeShape EntityType="DemoModel.AccountM" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DemoModel.AccountMPassword" Width="1.5" PointX="3.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DemoModel.ViewCustomerDetail" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

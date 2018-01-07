@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Customer";
+}
+
+<div ng-app="AppDemo">
+    <div ng-controller="Customer" class="container-fluid" style="margin-top:50px">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h2>Customer</h2></div>
+                    <div class="panel-body">
+                        <div class="input-group input-group-lg" style="margin-top:10px">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                            <input type="text" class="form-control" ng-model="SearchText" placeholder="Search" />
+                        </div>
+
+                        <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>AccountName</th>
+                                    <th>AccountCode</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in CustomerList | filter : SearchText | orderBy:'x.AccountName'" >                                    
+                                    <td><button ng-click="CustomerSelect(x)" ><span class="glyphicon glyphicon-ok"></span></button></td>
+                                    <td ng-bind="x.AccountName"></td>
+                                    <td ng-bind="x.AccountCode"></td>                                    
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">Total Customers: {{CustomerList.length}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+        var app = angular.module("AppDemo", []);
+
+        app.controller('Customer', function ($scope, $http) {
+            $scope.CustomerList = [];
+            $http.get('/Home/CustomerList').then(function (res) {
+                console.log(res);
+                $scope.CustomerList = res.data;
+            });
+
+            $scope.CustomerSelect = function (x) {
+                window.location = '/Home/CustomerOrder?UID=' + x.UID;
+            };
+        });
+
+</script>
