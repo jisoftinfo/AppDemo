@@ -22,28 +22,66 @@
                                 <input type="text" readonly class="form-control" value="@Model.AccountName">
                             </div>
                         </dif>
+                        <div id="CustomerProductList">
+
+                            <div class="input-group input-group-lg" style="margin-top:10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input type="text" class="form-control" ng-model="CustProductSearchText" placeholder="Search" />
+                            </div>
+                            <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>ItemCode</th>
+                                        <th>ItemName</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in CustProductList | filter : CustProductSearchText | orderBy:'x.ItemCode'">
+                                        <td><button ng-click="CustProductSelect (x)"><span class="glyphicon glyphicon-plus-sign"></span></button></td>
+                                        <td ng-bind="x.ItemCode"></td>
+                                        <td ng-bind="x.ItemName"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div>Total Customer Products: {{CustProductList.length}}</div>
+                        </div>
+
+                        <div id="SOProductList">
+
+                            <div class="input-group input-group-lg" style="margin-top:10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input type="text" class="form-control" ng-model="SOProductSearchText" placeholder="Search" />
+                            </div>
+                            <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>ItemCode</th>
+                                        <th>ItemName</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in SOProductList  | filter : SOProductSearchText | orderBy:'x.ItemCode'">
+                                        <td><button ng-click="SOProductSelect(x)"><span class="glyphicon glyphicon-minus-sign"></span></button></td>
+                                        <td ng-bind="x.ItemCode"></td>
+                                        <td ng-bind="x.ItemName"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div>Total Customer Order Products: {{SOProductList.length}}</div>
+                        </div>
                         
-                        <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>ItemCode</th>
-                                    <th>ItemName</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="x in ProductList | filter : SearchText | orderBy:'x.ItemCode'">
-                                    <td><button ng-click="ProductSelect(x)"><span class="glyphicon glyphicon-ok"></span></button></td>
-                                    <td ng-bind="x.ItemCode"></td>
-                                    <td ng-bind="x.ItemName"></td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3">Total Customers: {{ProductList.length}}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -59,15 +97,26 @@
         $scope.SO = {};
         $scope.SO.CustomerUID = @Model.UID;
         $scope.SO.OrderDate = new Date();
-        $scope.ProductSelect = function (x) {
+        $scope.CustProductSelect = function (x) {
             console.log(x);
+            $scope.SOProductList.push(x);
+            $scope.CustProductList.splice($scope.CustProductList.indexOf(x), 1)
         };
 
-        $scope.ProductList = [];
+
+        $scope.SOProductSelect = function (x) {
+            console.log(x);
+            $scope.CustProductList.push(x);
+            $scope.SOProductList.splice($scope.SOProductList.indexOf(x), 1)
+        };
+
+        $scope.CustProductList = [];
         $http.get('/Home/CustomerProductList?UID=' + $scope.SO.CustomerUID).then(function (res) {
             console.log(res);
-            $scope.ProductList = res.data;
+            $scope.CustProductList  = res.data;
         });
+
+        $scope.SOProductList = [];
 
     });
 
