@@ -27,7 +27,7 @@ namespace Swift.PLWeb.Controllers
         public JsonResult CustomerList()
         {
             var db = new DemoEntities();
-            var lst = db.ViewCustomerDetails.Select(x => new { x.UID, x.AccountName, x.AccountCode });
+            var lst = db.ViewCustomerDetails.Select(x => new { x.UID, x.AccountName, x.AccountCode,x.Address4,x.Address5,x.Category,x.GSTIN,x.PANNo });
             var r = Json(lst,JsonRequestBehavior.AllowGet);
             r.MaxJsonLength = int.MaxValue;
             return r;

@@ -16,19 +16,29 @@
                             <input type="text" class="form-control" ng-model="SearchText" placeholder="Search" />
                         </div>
 
-                        <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                        <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:400px;">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th>AccountName</th>
                                     <th>AccountCode</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Category</th>
+                                    <th>GSTIN No</th>
+                                    <th>Pan No</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="x in CustomerList | filter : SearchText | orderBy:'x.AccountName'" >                                    
                                     <td><button ng-click="CustomerSelect(x)" ><span class="glyphicon glyphicon-ok"></span></button></td>
                                     <td ng-bind="x.AccountName"></td>
-                                    <td ng-bind="x.AccountCode"></td>                                                                        
+                                    <td ng-bind="x.AccountCode"></td>  
+                                    <td ng-bind="x.Address4"></td>
+                                    <td ng-bind="x.Address5"></td>
+                                    <td ng-bind="x.Category"></td>
+                                    <td ng-bind="x.GSTIN"></td>
+                                    <td ng-bind="x.PANNo"></td>
                                 </tr>
                             </tbody>
                             <tfoot>
