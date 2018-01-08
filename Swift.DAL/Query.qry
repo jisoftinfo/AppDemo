@@ -1,0 +1,17 @@
+﻿ALTER PROCEDURE [dbo].[SP_CustomerwiseProductList] 	
+	@CustUId As decimal(18,0)
+AS
+BEGIN
+	Select	A.AccountCode, A.AccountName, I.ItemCode, I.ItemName, I.DrawingNo, I.DrawingRevisionNo, C.ItemName  Category, U.AccountName UOM
+			, P.ExciseGroupM_UID CGSTUID, P.SalesVATID SGSTUID, P.SalesCSTID IGSTUID, CGST.DutyPer CGSTPer, SGST.DutyPer SGSTPer, IGST.DutyPer IGSTPer
+			, P.DiscountPer From		PartyMItemsMPrice P
+			Inner Join	AccountM A On A.UID = P.AccountM_UID
+			Inner Join	ItemsM I On I.UID = P.ItemsM_UID And P.CurrentStatus = 1
+			Inner Join	ItemsM C On C.UID = I.ItemsM_UID
+			Inner Join	AccountM U On U.UID  = I.UOM_UID
+			Left Join	AccountM CGST On CGST.UID = P.ExciseGroupM_UID
+			Left Join	AccountM SGST On SGST.UID = P.SalesVATID
+			Left Join	AccountM IGST On IGST.UID = P.SalesCSTID
+			Where		P.AccountM_UID = @CustUId
+
+END
