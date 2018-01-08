@@ -91,6 +91,7 @@
       <DependentUpon>DBDemoModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Query.qry" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBDemoModel.Context.tt">
