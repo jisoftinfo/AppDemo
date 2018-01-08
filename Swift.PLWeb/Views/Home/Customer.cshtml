@@ -28,16 +28,18 @@
                                 <tr ng-repeat="x in CustomerList | filter : SearchText | orderBy:'x.AccountName'" >                                    
                                     <td><button ng-click="CustomerSelect(x)" ><span class="glyphicon glyphicon-ok"></span></button></td>
                                     <td ng-bind="x.AccountName"></td>
-                                    <td ng-bind="x.AccountCode"></td>                                    
+                                    <td ng-bind="x.AccountCode"></td>                                                                        
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3">Total Customers: {{CustomerList.length}}</td>
+                                    <td colspan="3"></td>
                                 </tr>
                             </tfoot>
                         </table>
-
+                        <div>
+                            Total Customers: {{CustomerList.length}}
+                        </div>
                     </div>
                 </div>
             </div>

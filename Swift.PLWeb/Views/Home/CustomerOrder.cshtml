@@ -64,14 +64,37 @@
                                         <th></th>
                                         <th>ItemCode</th>
                                         <th>ItemName</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="x in SOProductList  | filter : SOProductSearchText | orderBy:'x.ItemCode'">
+                                    <tr ng-repeat="x in SOProductList  | filter : SOProductSearchText | orderBy:'x.ItemCode'" ng-init="x.TotQty=0">
                                         <td><button ng-click="SOProductSelect(x)"><span class="glyphicon glyphicon-minus-sign"></span></button></td>
                                         <td ng-bind="x.ItemCode"></td>
-                                        <td ng-bind="x.ItemName"></td>
+                                        <td >
+                                            <div>{{x.ItemName}}</div>
+                                            <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th><button ng-click="ProductQty_Insert(x)"><span class="glyphicon glyphicon-plus"></span></button></th>
+                                                        <th>Sceduled Date</th>
+                                                        <th>Qty</th>
+                                                        <th>Delivary Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="y in x.QtyDetails  | orderBy:'y.ScheduledDate'" ng-init="$parent.x.TotQty = $parent.x.TotQty + y.Qty ">
+                                                        <td><button ng-click="ProductQty_Remove(x,y)"><span class="glyphicon glyphicon-minus"></span></button></td>
+                                                        <td><input type="date" ng-model="y.ScheduledDate" /></td>
+                                                        <td><input type="text" ng-model="y.Qty" /></td>
+                                                        <td><input type="date" ng-model="y.DelivaryDate" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        
                                     </tr>
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -98,16 +121,19 @@
         $scope.SO.CustomerUID = @Model.UID;
         $scope.SO.OrderDate = new Date();
         $scope.CustProductSelect = function (x) {
-            console.log(x);
+            console.log(x);            
+            $scope.CustProductList.splice($scope.CustProductList.indexOf(x), 1);
+            x.QtyDetails = [];   
+            $scope.ProductQty_Insert(x);
             $scope.SOProductList.push(x);
-            $scope.CustProductList.splice($scope.CustProductList.indexOf(x), 1)
+
         };
 
 
         $scope.SOProductSelect = function (x) {
             console.log(x);
             $scope.CustProductList.push(x);
-            $scope.SOProductList.splice($scope.SOProductList.indexOf(x), 1)
+            $scope.SOProductList.splice($scope.SOProductList.indexOf(x), 1);
         };
 
         $scope.CustProductList = [];
@@ -118,6 +144,15 @@
 
         $scope.SOProductList = [];
 
+        $scope.ProductQty_Insert = function(x){
+            x.QtyDetails.push({"ScheduledDate": new Date(),Qty:1,"DelivaryDate" : new Date()});
+        }
+
+        $scope.ProductQty_Remove = function (x, y) {
+            x.QtyDetails.splice(x.QtyDetails.indexOf(y), 1);
+        }
+
+        
     });
 
 
