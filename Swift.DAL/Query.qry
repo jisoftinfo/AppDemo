@@ -15,3 +15,17 @@ BEGIN
 			Where		P.AccountM_UID = @CustUId
 
 END
+
+
+CREATE VIEW [dbo].[ViewCustomerDetail]
+AS
+SELECT        TOP (100) PERCENT A.UID, A.AccountName, A.TNGSTNO AS GSTIN, A.AccountM_UID, A.AccountCode, C.AccountName AS Category, A.Phone, A.Mobile, A.PANNo, A.Fax, A.email, A.Debit_CreditLimit, A.Debit_CreditDays, 
+                         A.Address1, A.Address2, A.Address3, A.Address4, A.Address5, A.Pincode, AE_1.AccountName AS ExecutiveName
+FROM            dbo.AccountM AS A WITH (NoLock) INNER JOIN
+                         dbo.AccountHeadsLevel AS AL WITH (NoLock) ON A.UID = AL.AccountM_UID AND A.AccountM_UID = 34 LEFT OUTER JOIN
+                         dbo.AccountM AS C WITH (NoLock) ON C.UID = A.GroupId AND C.AccountTypeID = 140 AND C.AccountM_UID = 34 LEFT OUTER JOIN
+                             (SELECT        TOP (1) A.AccountName, AE.AccountM_UID
+                               FROM            dbo.AccountMContactEmployees AS AE WITH (NoLock) INNER JOIN
+                                                         dbo.AccountM AS A ON AE.EmployeeUID = A.UID) AS AE_1 ON AE_1.AccountM_UID = A.UID
+WHERE        (AL.UnderAccountId = 34) AND (A.IsGroup = 0) AND (A.BranchId = 1000)
+ORDER BY A.AccountName
