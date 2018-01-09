@@ -27,7 +27,7 @@ namespace Swift.PLWeb.Controllers
         public JsonResult CustomerList()
         {
             var db = new DemoEntities();
-            var lst = db.ViewCustomerDetails.Select(x => new { x.UID, x.AccountName, x.AccountCode });
+            var lst = db.ViewCustomerDetails.Select(x => new { x.UID, x.AccountName, x.AccountCode,x.Address4,x.Address5,x.Category,x.GSTIN,x.PANNo });
             var r = Json(lst,JsonRequestBehavior.AllowGet);
             r.MaxJsonLength = int.MaxValue;
             return r;
@@ -37,6 +37,15 @@ namespace Swift.PLWeb.Controllers
         {
             var db = new DemoEntities();
             var lst = db.SP_CustomerwiseProductList(UID).ToList();
+            var r = Json(lst, JsonRequestBehavior.AllowGet);
+            r.MaxJsonLength = int.MaxValue;
+            return r;
+        }
+
+        public JsonResult SaveTrans()
+        {
+            var db = new DemoEntities();
+            var lst = db.SP_CustomerwiseProductList(0).ToList();
             var r = Json(lst, JsonRequestBehavior.AllowGet);
             r.MaxJsonLength = int.MaxValue;
             return r;

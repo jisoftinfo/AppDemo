@@ -1,4 +1,4 @@
-﻿ALTER PROCEDURE [dbo].[SP_CustomerwiseProductList] 	
+﻿Create PROCEDURE [dbo].[SP_CustomerwiseProductList] 	
 	@CustUId As decimal(18,0)
 AS
 BEGIN

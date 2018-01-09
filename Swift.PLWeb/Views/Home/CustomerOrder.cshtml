@@ -21,6 +21,11 @@
                                 <label>Customer</label>
                                 <input type="text" readonly class="form-control" value="@Model.AccountName">
                             </div>
+                            <div class="form-group">                                                                
+                                <button type="button" class="btn btn-info" ng-click="SaveTrans()">
+                                    <span class="glyphicon glyphicon-saved"></span> Save
+                                </button>
+                            </div>
                         </dif>
                         <div id="CustomerProductList">
 
@@ -129,6 +134,10 @@
 
         };
 
+        $scope.SaveTrans = function ()
+        {
+            alert('Hi');
+        }
 
         $scope.SOProductSelect = function (x) {
             console.log(x);
