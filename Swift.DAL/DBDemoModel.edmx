@@ -79,6 +79,26 @@
           <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="DocumentTypeMList">
+          <Key>
+            <PropertyRef Name="DocumentTypeId" />
+            <PropertyRef Name="BranchId" />
+            <PropertyRef Name="Yr" />
+          </Key>
+          <Property Name="DocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Yr" Type="int" Nullable="false" />
+          <Property Name="LastId" Type="int" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="StatusM">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Transactions">
           <Key>
             <PropertyRef Name="UID" />
@@ -224,6 +244,15 @@
           <Property Name="IsAlternateBOM" Type="bit" />
           <Property Name="GRN_AccountM_UID" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="TransactionSlNos">
+          <Key>
+            <PropertyRef Name="TableName" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="TableName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BranchId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="LastID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewCustomerDetail">
@@ -286,8 +315,11 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
         <EntityContainer Name="DemoModelStoreContainer">
           <EntitySet Name="AccountM" EntityType="Self.AccountM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountMPassword" EntityType="Self.AccountMPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentTypeMList" EntityType="Self.DocumentTypeMList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusM" EntityType="Self.StatusM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionsList" EntityType="Self.TransactionsList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionSlNos" EntityType="Self.TransactionSlNos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ViewCustomerDetail" EntityType="Self.ViewCustomerDetail" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ViewCustomerDetail].[UID] AS [UID], 
@@ -408,6 +440,9 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
             <End Role="Transaction" EntitySet="Transactions" />
             <End Role="TransactionsList" EntitySet="TransactionsLists" />
           </AssociationSet>
+          <EntitySet Name="TransactionSlNos" EntityType="DemoModel.TransactionSlNo" />
+          <EntitySet Name="DocumentTypeMLists" EntityType="DemoModel.DocumentTypeMList" />
+          <EntitySet Name="StatusMs" EntityType="DemoModel.StatusM" />
         </EntityContainer>
         <EntityType Name="ViewCustomerDetail">
           <Key>
@@ -452,8 +487,6 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Name="ExecutiveName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="SP_CustomerwiseProductList_Result">
-          <Property Type="String" Name="AccountCode" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="AccountName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="ItemCode" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="ItemName" Nullable="false" MaxLength="250" />
           <Property Type="String" Name="DrawingNo" Nullable="false" MaxLength="15" />
@@ -467,6 +500,10 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Type="Decimal" Name="SGSTPer" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="IGSTPer" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="DiscountPer" Nullable="false" Precision="18" Scale="3" />
+          <Property Type="Decimal" Name="UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="UOM_UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Category_UID" Nullable="false" Precision="18" Scale="0" />
         </ComplexType>
         <EntityType Name="Transaction">
           <Key>
@@ -627,6 +664,35 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TransactionSlNo">
+          <Key>
+            <PropertyRef Name="TableName" />
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BranchId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="LastID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DocumentTypeMList">
+          <Key>
+            <PropertyRef Name="DocumentTypeId" />
+            <PropertyRef Name="BranchId" />
+            <PropertyRef Name="Yr" />
+          </Key>
+          <Property Name="DocumentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Yr" Type="Int32" Nullable="false" />
+          <Property Name="LastId" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="StatusM">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -738,8 +804,6 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <FunctionImportMapping FunctionImportName="SP_CustomerwiseProductList" FunctionName="DemoModel.Store.SP_CustomerwiseProductList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DemoModel.SP_CustomerwiseProductList_Result">
-                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
-                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
                 <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="DrawingNo" ColumnName="DrawingNo" />
@@ -753,6 +817,10 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
                 <ScalarProperty Name="SGSTPer" ColumnName="SGSTPer" />
                 <ScalarProperty Name="IGSTPer" ColumnName="IGSTPer" />
                 <ScalarProperty Name="DiscountPer" ColumnName="DiscountPer" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UOM_UID" ColumnName="UOM_UID" />
+                <ScalarProperty Name="Category_UID" ColumnName="Category_UID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -899,6 +967,35 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="ItemsM_UID" ColumnName="ItemsM_UID" />
                 <ScalarProperty Name="Transactions_UID" ColumnName="Transactions_UID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionSlNos">
+            <EntityTypeMapping TypeName="DemoModel.TransactionSlNo">
+              <MappingFragment StoreEntitySet="TransactionSlNos">
+                <ScalarProperty Name="LastID" ColumnName="LastID" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentTypeMLists">
+            <EntityTypeMapping TypeName="DemoModel.DocumentTypeMList">
+              <MappingFragment StoreEntitySet="DocumentTypeMList">
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="LastId" ColumnName="LastId" />
+                <ScalarProperty Name="Yr" ColumnName="Yr" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusMs">
+            <EntityTypeMapping TypeName="DemoModel.StatusM">
+              <MappingFragment StoreEntitySet="StatusM">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
               </MappingFragment>
             </EntityTypeMapping>

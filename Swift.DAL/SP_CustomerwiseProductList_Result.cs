@@ -13,8 +13,6 @@ namespace Swift.DAL
     
     public partial class SP_CustomerwiseProductList_Result
     {
-        public string AccountCode { get; set; }
-        public string AccountName { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public string DrawingNo { get; set; }
@@ -28,5 +26,9 @@ namespace Swift.DAL
         public Nullable<decimal> SGSTPer { get; set; }
         public Nullable<decimal> IGSTPer { get; set; }
         public decimal DiscountPer { get; set; }
+        public decimal UID { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public decimal UOM_UID { get; set; }
+        public decimal Category_UID { get; set; }
     }
 }

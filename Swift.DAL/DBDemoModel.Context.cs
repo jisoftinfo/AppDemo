@@ -32,6 +32,9 @@ namespace Swift.DAL
         public virtual DbSet<ViewCustomerDetail> ViewCustomerDetails { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<TransactionsList> TransactionsLists { get; set; }
+        public virtual DbSet<TransactionSlNo> TransactionSlNos { get; set; }
+        public virtual DbSet<DocumentTypeMList> DocumentTypeMLists { get; set; }
+        public virtual DbSet<StatusM> StatusMs { get; set; }
     
         public virtual ObjectResult<SP_CustomerwiseProductList_Result> SP_CustomerwiseProductList(Nullable<decimal> custUId)
         {

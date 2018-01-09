@@ -9,6 +9,14 @@ namespace Swift.Common
 {
     public static class AppLib
     {
+
+#region Transaction
+        public static decimal BranchId = 1000;
+        public static int FinYear = DateTime.Now.Month <= 3 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+
+        public enum DocumdentType { CustomerOrder=10 };
+        #endregion
+
         public static string WriteLogState = "";
         public static void WriteLog(String str)
         {

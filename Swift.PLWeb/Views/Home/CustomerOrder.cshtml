@@ -92,7 +92,7 @@
                                                         <td><button ng-click="ProductQty_Remove(x,y)"><span class="glyphicon glyphicon-minus"></span></button></td>
                                                         <td><input type="date" ng-model="y.ScheduledDate" /></td>
                                                         <td><input type="text" ng-model="y.Qty" /></td>
-                                                        <td><input type="date" ng-model="y.DelivaryDate" /></td>
+                                                        <td><input type="date" ng-model="y.DeliveryDate" /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -136,9 +136,60 @@
 
         $scope.SaveTrans = function ()
         {
-            alert('Hi');
-        }
 
+            var data = {
+                OrderDate: $scope.SO.OrderDate,
+                CustomerUID: $scope.SO.CustomerUID
+            };
+            $http.post('/Home/SaveTrans', data).then(function (res) {
+                console.log(res);
+                if (res.data.IsSaved == true) {
+                    $scope.SO.UID = res.data.UID;
+                    $scope.SO.OrderNo = res.data.OrderNo;                    
+                    $scope.SaveTransList(res.data.UID);
+                    alert("Saved. Order No : " + $scope.SO.OrderNo);
+                } else {
+                    alert(res.ErrMsg);
+                }
+            });
+        }
+        $scope.SaveTransList = function (TranUID) {
+            var data = {
+                CustUID: $scope.SO.CustomerUID,
+                TranUID: TranUID,
+                ItemList: [],
+                ItemQtyList: []
+            };
+
+            for (var i = 0; i < $scope.SOProductList.length; i++){
+                var Product = $scope.SOProductList[i];
+                var Item = {
+                    UID : Product.UID                    
+                };
+                data.ItemList.push(Item);
+
+                for (var j = 0; j < Product.QtyDetails.length; j++) {
+                    var q = Product.QtyDetails[j];
+                    var ItemQty = {
+                        ItemUID: Product.UID,
+                        ScheduledDate: q.ScheduledDate,
+                        DeliveryDate: q.DeliveryDate,
+                        Qty:q.Qty
+                    };
+                    data.ItemQtyList.push(ItemQty);
+                }
+
+                
+            }
+
+
+            $http.post('/Home/SaveTransList', data).then(function (res) {
+                console.log(res);
+                if (res.data.IsSaved == true) {
+
+                }
+            });
+        }
         $scope.SOProductSelect = function (x) {
             console.log(x);
             $scope.CustProductList.push(x);
@@ -154,7 +205,7 @@
         $scope.SOProductList = [];
 
         $scope.ProductQty_Insert = function(x){
-            x.QtyDetails.push({"ScheduledDate": new Date(),Qty:1,"DelivaryDate" : new Date()});
+            x.QtyDetails.push({ "ScheduledDate": new Date(), Qty: 1,"DeliveryDate" : new Date()});
         }
 
         $scope.ProductQty_Remove = function (x, y) {

@@ -71,14 +71,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBDemoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DocumentTypeMList.cs">
+      <DependentUpon>DBDemoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SP_CustomerwiseProductList_Result.cs">
+      <DependentUpon>DBDemoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusM.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TransactionsList.cs">
+      <DependentUpon>DBDemoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionSlNo.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewCustomerDetail.cs">

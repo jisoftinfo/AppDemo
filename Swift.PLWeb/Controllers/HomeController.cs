@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Swift.Common;
 using Swift.DAL;
+using Swift.PLWeb.Models;
 
 namespace Swift.PLWeb.Controllers
 {
@@ -41,23 +42,211 @@ namespace Swift.PLWeb.Controllers
             r.MaxJsonLength = int.MaxValue;
             return r;
         }
-
-        public JsonResult SaveTrans()
+        
+        public JsonResult SaveTrans(DateTime OrderDate,decimal CustomerUID)
         {
-            var db = new DemoEntities();
-            Transaction tr = new Transaction() {
 
-            };
-
-
-            db.Transactions.Add(tr);
-            db.SaveChanges();
-
-            var r = Json(new { IsSave = false, ErrMsg="Not Saved" }, JsonRequestBehavior.AllowGet);
+            var r = Json(new { IsSaved = false, ErrMsg = "Not Saved" }, JsonRequestBehavior.AllowGet);
             r.MaxJsonLength = int.MaxValue;
+
+            var db = new DemoEntities();
+            var trSLNo = db.TransactionSlNos.Where(x => x.BranchId == AppLib.BranchId && x.TableName == "Transactions").FirstOrDefault();
+            var docNo = db.DocumentTypeMLists.Where(x => x.BranchId == AppLib.BranchId && x.Yr == AppLib.FinYear && x.DocumentTypeId == (int) AppLib.DocumdentType.CustomerOrder).FirstOrDefault();
+            var status = db.StatusMs.Where(x => x.Status == "Open").FirstOrDefault();
+            if (docNo ==null)
+            {
+                docNo = new DocumentTypeMList() {
+                    BranchId=AppLib.BranchId,
+                    Yr=AppLib.FinYear                    
+                };
+                db.DocumentTypeMLists.Add(docNo);
+            }
+            if (trSLNo != null)
+            {
+                try
+                {
+                    trSLNo.LastID += 1;
+                    docNo.LastId += 1;
+                    docNo.LastUpdateDate = DateTime.Now;
+
+                    Transaction tr = new Transaction()
+                    {
+                        UID = trSLNo.LastID,
+                        BranchId = AppLib.BranchId,
+                        FinYear = AppLib.FinYear,
+                        DocumentTypeID = (int)AppLib.DocumdentType.CustomerOrder,
+                        DocumentNo = docNo.LastId,
+                        LongDocumentNo = string.Format("CO{0}/{1:D4}", AppLib.FinYear % 100, docNo.LastId),
+                        DocumentDate = OrderDate,
+                        PreparedDate = OrderDate,
+                        AccountM_UID = CustomerUID,
+                        RefDoc = "",
+                        AddAmount = 0,
+                        PackingCharge = 0,
+                        Discount = 0,
+                        SpecialDiscount = 0,
+                        ED = 0,
+                        EDRoundOff = 0,
+                        EDCess = 0,
+                        OtherSalesTax = 0,
+                        LocalSalesTax = 0,
+                        Surcharge = 0,
+                        ServiceTax = 0,
+                        ServiceTaxCess = 0,
+                        OtherDiscount = 0,
+                        GrossValue = 0,
+                        TotalValue = 0,
+                        StatusM_UID = status.UID,
+                        RefTransactions_UID = 0,
+                        TotalValueRoundOff = 0,
+                        AmendmentNo = 0,
+                        AmendmentDate = DateTime.Now,
+                        PrintCount = 0,
+                        AmendmentReason = "",
+                        DespatchToId = 0,
+                        DealerId = 0,
+                        RegionId = 0,
+                        ZoneId = 0,
+                        AreaId = 0,
+                        InchargeId = 0,
+                        StatutoryDocM_UID = 0,
+                        ViewType = 0,
+                        CurrencyId = 0,
+                        CurrencyConversionRate = 0,
+                        RefDocDate = DateTime.Now,
+                        RefDoc1 = "",
+                        StatusReason = "",
+                        HECess = 0,
+                        ClosedGrossValue = 0,
+                        IsEDModified = false,
+                        IsEDCessModified = false,
+                        IsLocalSalesTaxModified = false,
+                        IsTotalValueRoundOffModified = false,
+                        IsHECessModified = false,
+                        TransactionsGate_UID = 0,
+                        ServiceTaxHECess = 0
+                    };                    
+            
+                    db.Transactions.Add(tr);
+                    db.SaveChanges();
+
+
+
+                    r = Json(new { IsSaved = true,UID=tr.UID, OrderNo = tr.LongDocumentNo, ErrMsg = "" }, JsonRequestBehavior.AllowGet);
+                }
+                catch(Exception ex)
+                {
+                    AppLib.WriteLog(ex);
+                }
+                
+
+            }
+
             return r;
         }
 
+        public JsonResult SaveTransList(decimal CustUID,decimal TranUID,List<COItem> ItemList,List<COItemSchedule> ItemQtyList)
+        {
+
+            var r = Json(new { IsSaved = false, ErrMsg = "Not Saved" }, JsonRequestBehavior.AllowGet);
+            r.MaxJsonLength = int.MaxValue;
+            try
+            {
+                var db = new DemoEntities();
+                var ProductList = db.SP_CustomerwiseProductList(CustUID).ToList();
+                var status = db.StatusMs.Where(x => x.Status == "Open").FirstOrDefault();
+
+                foreach (var item in ItemList)
+                {
+                    var trSLNo = db.TransactionSlNos.Where(x => x.BranchId == AppLib.BranchId && x.TableName == "TransactionsList").FirstOrDefault();
+                    if (trSLNo != null)
+                    {
+                        trSLNo.LastID += 1;
+                        var qty = ItemQtyList.Where(x => x.ItemUID == item.UID).Sum(x => x.Qty);
+                        var Product = ProductList.Where(x => x.UID == item.UID).FirstOrDefault();
+
+                        decimal Price = Product.Price.Value;
+                        decimal Amount = Price * qty;
+
+                        decimal DisPer = Product.DiscountPer;
+                        decimal DisAmt = Amount * DisPer / 100;
+
+                        decimal ItemAmount = Amount - DisAmt;
+
+                        decimal CGSTPer = Product.CGSTPer??0;
+                        decimal CGSTAmt = ItemAmount * CGSTPer / 100;
+
+                        decimal SGSTPer = Product.SGSTPer??0;
+                        decimal SGSTAmt = ItemAmount * SGSTPer / 100;
+
+                        decimal IGSTPer = Product.IGSTPer??0;
+                        decimal IGSTAmt = ItemAmount * IGSTPer / 100;
+
+                        decimal ToalAmount = ItemAmount + CGSTAmt + SGSTAmt + IGSTAmt;
+
+                        TransactionsList trl = new TransactionsList()
+                        {
+                            UID = trSLNo.LastID,
+                            Transactions_UID = TranUID,
+                            ItemsM_UID = item.UID,
+                            Qty = qty,
+                            Price = Product.Price.Value,
+                            BasicValue = Amount,
+                            AddPer = 0,
+                            AddAmount = 0,
+                            BasicDiscountPer = DisPer,
+                            BasicDiscountAmount = DisAmt,
+                            PackingPer = 0,
+                            PackingAmount = 0,
+                            ExciseDutyPer = IGSTPer,
+                            ExciseDutyAmount = IGSTAmt,
+                            CessPer = 0,
+                            CessAmount = 0,
+                            LocalSalesTaxPer = CGSTPer + SGSTPer,
+                            LocalSalesTaxAmount = CGSTAmt + SGSTAmt,
+                            SurchargePer =0,
+                            SurchargeAmount=0,
+                            OtherSalesTaxPer =IGSTPer,                            
+                            OtherSalesTaxAmount =IGSTAmt,
+                            ServiceTaxPer=0,
+                            ServiceTaxAmount =0,
+                            ServiceTaxCessPer=0,
+                            ServiceTaxCessAmount=0,
+                            TotalValue=ToalAmount,
+                            SalesVolumeDiscount = ItemAmount,
+                            Commission=0,
+                            SpecialDiscount=0,
+                            StatusM_UID = status.UID,
+                            AddlDetails="",
+                            UOM_UID = Product.UOM_UID,
+                            RefTransactionsList_UID =0,
+                            BalanceQty=qty,
+                            QtyDC=0,
+                            QtyReceived=0,
+                            QtyRejected=0,
+                            QtyReworked=0,
+                            Weight=0,
+                            ExciseGroupM_UID=765,
+                            ItemsM_Tolerance=0,
+                            
+
+                        };
+
+                        db.TransactionsLists.Add(trl);
+                        db.SaveChanges();
+
+
+                    }
+                }
+                r = Json(new { IsSaved = true, ErrMsg = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                AppLib.WriteLog(ex);
+            }
+
+            return r;
+        }
         public ActionResult CustomerOrder(decimal UID)
         {
             var db = new DemoEntities();            
