@@ -42,6 +42,15 @@ namespace Swift.PLWeb.Controllers
             return r;
         }
 
+        public JsonResult SaveTrans()
+        {
+            var db = new DemoEntities();
+            var lst = db.SP_CustomerwiseProductList(0).ToList();
+            var r = Json(lst, JsonRequestBehavior.AllowGet);
+            r.MaxJsonLength = int.MaxValue;
+            return r;
+        }
+
         public ActionResult CustomerOrder(decimal UID)
         {
             var db = new DemoEntities();            
