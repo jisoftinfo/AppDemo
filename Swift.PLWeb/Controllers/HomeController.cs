@@ -45,8 +45,15 @@ namespace Swift.PLWeb.Controllers
         public JsonResult SaveTrans()
         {
             var db = new DemoEntities();
-            var lst = db.SP_CustomerwiseProductList(0).ToList();
-            var r = Json(lst, JsonRequestBehavior.AllowGet);
+            Transaction tr = new Transaction() {
+
+            };
+
+
+            db.Transactions.Add(tr);
+            db.SaveChanges();
+
+            var r = Json(new { IsSave = false, ErrMsg="Not Saved" }, JsonRequestBehavior.AllowGet);
             r.MaxJsonLength = int.MaxValue;
             return r;
         }

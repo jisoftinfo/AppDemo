@@ -79,6 +79,151 @@
           <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BranchId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FinYear" Type="int" Nullable="false" />
+          <Property Name="DocumentTypeID" Type="int" Nullable="false" />
+          <Property Name="DocumentNo" Type="int" Nullable="false" />
+          <Property Name="DocumentDate" Type="datetime" Nullable="false" />
+          <Property Name="PreparedDate" Type="datetime" Nullable="false" />
+          <Property Name="AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AddlNotes" Type="nvarchar" MaxLength="1000" />
+          <Property Name="RefDoc" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackingCharge" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SpecialDiscount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ED" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EDRoundOff" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="EDCess" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OtherSalesTax" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LocalSalesTax" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Surcharge" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ServiceTax" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ServiceTaxCess" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OtherDiscount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GrossValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StatusM_UID" Type="int" Nullable="false" />
+          <Property Name="RefTransactions_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TotalValueRoundOff" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="AmendmentNo" Type="int" Nullable="false" />
+          <Property Name="AmendmentDate" Type="datetime" Nullable="false" />
+          <Property Name="PrintCount" Type="int" Nullable="false" />
+          <Property Name="AmendmentReason" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DespatchToId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DealerId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RegionId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ZoneId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AreaId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="InchargeId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="StatutoryDocM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ViewType" Type="int" Nullable="false" />
+          <Property Name="CurrencyId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CurrencyConversionRate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RefDocDate" Type="datetime" />
+          <Property Name="LongDocumentNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RefDoc1" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="RefDocDate1" Type="datetime" />
+          <Property Name="StatusReason" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DespatchDate" Type="datetime" />
+          <Property Name="HECess" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ClosedGrossValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsEDModified" Type="bit" Nullable="false" />
+          <Property Name="IsEDCessModified" Type="bit" Nullable="false" />
+          <Property Name="IsOtherSalesTaxModified" Type="bit" Nullable="false" />
+          <Property Name="IsLocalSalesTaxModified" Type="bit" Nullable="false" />
+          <Property Name="IsTotalValueRoundOffModified" Type="bit" Nullable="false" />
+          <Property Name="IsHECessModified" Type="bit" Nullable="false" />
+          <Property Name="TransactionsGate_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ServiceTaxHECess" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionsList">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Transactions_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ItemsM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Qty" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="BasicValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AddPer" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="AddAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BasicDiscountPer" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BasicDiscountAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackingPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackingAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ExciseDutyPer" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ExciseDutyAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CessPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CessAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LocalSalesTaxPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LocalSalesTaxAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SurchargePer" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="SurchargeAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OtherSalesTaxPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OtherSalesTaxAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ServiceTaxPer" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="ServiceTaxAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ServiceTaxCessPer" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="ServiceTaxCessAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SalesVolumeDiscount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Commission" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SpecialDiscount" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="StatusM_UID" Type="int" Nullable="false" />
+          <Property Name="AddlDetails" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="UOM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RefTransactionsList_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BalanceQty" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="QtyDC" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="QtyReceived" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="QtyRejected" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="QtyReworked" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="RequiredDate" Type="datetime" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="ExciseGroupM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ItemsM_Tolerance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CategoryM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Sales_AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Stock_AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Consumption_AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WIP_AccountM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ConversionUOM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ConversionUOM_Rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ConversionUOM_Qty" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="BatchNo" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CommissionM_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CommissionPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PartyMItemsMPrice_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WarrantyUpto" Type="datetime" />
+          <Property Name="ParentTransactionsList_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RefDocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="IsEDIncluded" Type="bit" Nullable="false" />
+          <Property Name="HECessPer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="HECessAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsVATApplicable" Type="bit" Nullable="false" />
+          <Property Name="IsEDApplicable" Type="bit" Nullable="false" />
+          <Property Name="StockValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EDID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CessID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="HECessID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="VATID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CSTID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BalanceRejectedQty" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="VATCategoryID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TransactionsListSent_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="InspectionUID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ServiceTaxID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsRateCalForRecQty" Type="bit" />
+          <Property Name="IsAlternateBOM" Type="bit" />
+          <Property Name="GRN_AccountM_UID" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewCustomerDetail">
@@ -123,12 +268,26 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Name="Pincode" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ExecutiveName" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_TransactionsList_Transactions">
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="1" />
+          <End Role="TransactionsList" Type="Self.TransactionsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transactions">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="TransactionsList">
+              <PropertyRef Name="Transactions_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_CustomerwiseProductList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustUId" Type="decimal" Mode="In" />
         </Function>
         <EntityContainer Name="DemoModelStoreContainer">
           <EntitySet Name="AccountM" EntityType="Self.AccountM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountMPassword" EntityType="Self.AccountMPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionsList" EntityType="Self.TransactionsList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ViewCustomerDetail" EntityType="Self.ViewCustomerDetail" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ViewCustomerDetail].[UID] AS [UID], 
@@ -153,6 +312,10 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
     [ViewCustomerDetail].[ExecutiveName] AS [ExecutiveName]
     FROM [dbo].[ViewCustomerDetail] AS [ViewCustomerDetail]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_TransactionsList_Transactions" Association="Self.FK_TransactionsList_Transactions">
+            <End Role="Transactions" EntitySet="Transactions" />
+            <End Role="TransactionsList" EntitySet="TransactionsList" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -237,8 +400,14 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <EntitySet Name="AccountMPasswords" EntityType="Self.AccountMPassword" />
           <EntitySet Name="ViewCustomerDetails" EntityType="DemoModel.ViewCustomerDetail" />
           <FunctionImport Name="SP_CustomerwiseProductList" ReturnType="Collection(DemoModel.SP_CustomerwiseProductList_Result)">
-            <Parameter Name="CustUId" Mode="In" Type="Decimal" />
+          <Parameter Name="CustUId" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <EntitySet Name="Transactions" EntityType="DemoModel.Transaction" />
+          <EntitySet Name="TransactionsLists" EntityType="DemoModel.TransactionsList" />
+          <AssociationSet Name="FK_TransactionsList_Transactions" Association="DemoModel.FK_TransactionsList_Transactions">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="TransactionsList" EntitySet="TransactionsLists" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ViewCustomerDetail">
           <Key>
@@ -299,6 +468,165 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Type="Decimal" Name="IGSTPer" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="DiscountPer" Nullable="false" Precision="18" Scale="3" />
         </ComplexType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="BranchId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="FinYear" Type="Int32" Nullable="false" />
+          <Property Name="DocumentTypeID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentNo" Type="Int32" Nullable="false" />
+          <Property Name="DocumentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PreparedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AccountM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AddlNotes" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="RefDoc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PackingCharge" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SpecialDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ED" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="EDRoundOff" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="EDCess" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="OtherSalesTax" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LocalSalesTax" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Surcharge" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ServiceTax" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ServiceTaxCess" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="OtherDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GrossValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="StatusM_UID" Type="Int32" Nullable="false" />
+          <Property Name="RefTransactions_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TotalValueRoundOff" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="AmendmentNo" Type="Int32" Nullable="false" />
+          <Property Name="AmendmentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PrintCount" Type="Int32" Nullable="false" />
+          <Property Name="AmendmentReason" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DespatchToId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DealerId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="RegionId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ZoneId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AreaId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="InchargeId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="StatutoryDocM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ViewType" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CurrencyConversionRate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="RefDocDate" Type="DateTime" Precision="3" />
+          <Property Name="LongDocumentNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RefDoc1" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="RefDocDate1" Type="DateTime" Precision="3" />
+          <Property Name="StatusReason" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DespatchDate" Type="DateTime" Precision="3" />
+          <Property Name="HECess" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ClosedGrossValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsEDModified" Type="Boolean" Nullable="false" />
+          <Property Name="IsEDCessModified" Type="Boolean" Nullable="false" />
+          <Property Name="IsOtherSalesTaxModified" Type="Boolean" Nullable="false" />
+          <Property Name="IsLocalSalesTaxModified" Type="Boolean" Nullable="false" />
+          <Property Name="IsTotalValueRoundOffModified" Type="Boolean" Nullable="false" />
+          <Property Name="IsHECessModified" Type="Boolean" Nullable="false" />
+          <Property Name="TransactionsGate_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ServiceTaxHECess" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="TransactionsLists" Relationship="DemoModel.FK_TransactionsList_Transactions" FromRole="Transaction" ToRole="TransactionsList" />
+        </EntityType>
+        <EntityType Name="TransactionsList">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Transactions_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ItemsM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Qty" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="BasicValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="AddPer" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="AddAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BasicDiscountPer" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="BasicDiscountAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PackingPer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PackingAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ExciseDutyPer" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ExciseDutyAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CessPer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CessAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LocalSalesTaxPer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LocalSalesTaxAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SurchargePer" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="SurchargeAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="OtherSalesTaxPer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="OtherSalesTaxAmount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ServiceTaxPer" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="ServiceTaxAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ServiceTaxCessPer" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="ServiceTaxCessAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SalesVolumeDiscount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Commission" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="SpecialDiscount" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="StatusM_UID" Type="Int32" Nullable="false" />
+          <Property Name="AddlDetails" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UOM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="RefTransactionsList_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="BalanceQty" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="QtyDC" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="QtyReceived" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="QtyRejected" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="QtyReworked" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="RequiredDate" Type="DateTime" Precision="3" />
+          <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="ExciseGroupM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ItemsM_Tolerance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CategoryM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Sales_AccountM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Stock_AccountM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Consumption_AccountM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="WIP_AccountM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ConversionUOM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ConversionUOM_Rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ConversionUOM_Qty" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="BatchNo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CommissionM_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CommissionPer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PartyMItemsMPrice_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="WarrantyUpto" Type="DateTime" Precision="3" />
+          <Property Name="ParentTransactionsList_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="RefDocumentTypeId" Type="Int32" Nullable="false" />
+          <Property Name="IsEDIncluded" Type="Boolean" Nullable="false" />
+          <Property Name="HECessPer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="HECessAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsVATApplicable" Type="Boolean" Nullable="false" />
+          <Property Name="IsEDApplicable" Type="Boolean" Nullable="false" />
+          <Property Name="StockValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="EDID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CessID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="HECessID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="VATID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CSTID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="BalanceRejectedQty" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="VATCategoryID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TransactionsListSent_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="InspectionUID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ServiceTaxID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IsRateCalForRecQty" Type="Boolean" />
+          <Property Name="IsAlternateBOM" Type="Boolean" />
+          <Property Name="GRN_AccountM_UID" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Transaction" Relationship="DemoModel.FK_TransactionsList_Transactions" FromRole="TransactionsList" ToRole="Transaction" />
+        </EntityType>
+        <Association Name="FK_TransactionsList_Transactions">
+          <End Type="DemoModel.Transaction" Role="Transaction" Multiplicity="1" />
+          <End Type="DemoModel.TransactionsList" Role="TransactionsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="TransactionsList">
+              <PropertyRef Name="Transactions_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -428,6 +756,153 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="DemoModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="ServiceTaxHECess" ColumnName="ServiceTaxHECess" />
+                <ScalarProperty Name="TransactionsGate_UID" ColumnName="TransactionsGate_UID" />
+                <ScalarProperty Name="IsHECessModified" ColumnName="IsHECessModified" />
+                <ScalarProperty Name="IsTotalValueRoundOffModified" ColumnName="IsTotalValueRoundOffModified" />
+                <ScalarProperty Name="IsLocalSalesTaxModified" ColumnName="IsLocalSalesTaxModified" />
+                <ScalarProperty Name="IsOtherSalesTaxModified" ColumnName="IsOtherSalesTaxModified" />
+                <ScalarProperty Name="IsEDCessModified" ColumnName="IsEDCessModified" />
+                <ScalarProperty Name="IsEDModified" ColumnName="IsEDModified" />
+                <ScalarProperty Name="ClosedGrossValue" ColumnName="ClosedGrossValue" />
+                <ScalarProperty Name="HECess" ColumnName="HECess" />
+                <ScalarProperty Name="DespatchDate" ColumnName="DespatchDate" />
+                <ScalarProperty Name="StatusReason" ColumnName="StatusReason" />
+                <ScalarProperty Name="RefDocDate1" ColumnName="RefDocDate1" />
+                <ScalarProperty Name="RefDoc1" ColumnName="RefDoc1" />
+                <ScalarProperty Name="LongDocumentNo" ColumnName="LongDocumentNo" />
+                <ScalarProperty Name="RefDocDate" ColumnName="RefDocDate" />
+                <ScalarProperty Name="CurrencyConversionRate" ColumnName="CurrencyConversionRate" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="ViewType" ColumnName="ViewType" />
+                <ScalarProperty Name="StatutoryDocM_UID" ColumnName="StatutoryDocM_UID" />
+                <ScalarProperty Name="InchargeId" ColumnName="InchargeId" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ZoneId" ColumnName="ZoneId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="DealerId" ColumnName="DealerId" />
+                <ScalarProperty Name="DespatchToId" ColumnName="DespatchToId" />
+                <ScalarProperty Name="AmendmentReason" ColumnName="AmendmentReason" />
+                <ScalarProperty Name="PrintCount" ColumnName="PrintCount" />
+                <ScalarProperty Name="AmendmentDate" ColumnName="AmendmentDate" />
+                <ScalarProperty Name="AmendmentNo" ColumnName="AmendmentNo" />
+                <ScalarProperty Name="TotalValueRoundOff" ColumnName="TotalValueRoundOff" />
+                <ScalarProperty Name="RefTransactions_UID" ColumnName="RefTransactions_UID" />
+                <ScalarProperty Name="StatusM_UID" ColumnName="StatusM_UID" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="GrossValue" ColumnName="GrossValue" />
+                <ScalarProperty Name="OtherDiscount" ColumnName="OtherDiscount" />
+                <ScalarProperty Name="ServiceTaxCess" ColumnName="ServiceTaxCess" />
+                <ScalarProperty Name="ServiceTax" ColumnName="ServiceTax" />
+                <ScalarProperty Name="Surcharge" ColumnName="Surcharge" />
+                <ScalarProperty Name="LocalSalesTax" ColumnName="LocalSalesTax" />
+                <ScalarProperty Name="OtherSalesTax" ColumnName="OtherSalesTax" />
+                <ScalarProperty Name="EDCess" ColumnName="EDCess" />
+                <ScalarProperty Name="EDRoundOff" ColumnName="EDRoundOff" />
+                <ScalarProperty Name="ED" ColumnName="ED" />
+                <ScalarProperty Name="SpecialDiscount" ColumnName="SpecialDiscount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="PackingCharge" ColumnName="PackingCharge" />
+                <ScalarProperty Name="AddAmount" ColumnName="AddAmount" />
+                <ScalarProperty Name="RefDoc" ColumnName="RefDoc" />
+                <ScalarProperty Name="AddlNotes" ColumnName="AddlNotes" />
+                <ScalarProperty Name="AccountM_UID" ColumnName="AccountM_UID" />
+                <ScalarProperty Name="PreparedDate" ColumnName="PreparedDate" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="FinYear" ColumnName="FinYear" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionsLists">
+            <EntityTypeMapping TypeName="DemoModel.TransactionsList">
+              <MappingFragment StoreEntitySet="TransactionsList">
+                <ScalarProperty Name="GRN_AccountM_UID" ColumnName="GRN_AccountM_UID" />
+                <ScalarProperty Name="IsAlternateBOM" ColumnName="IsAlternateBOM" />
+                <ScalarProperty Name="IsRateCalForRecQty" ColumnName="IsRateCalForRecQty" />
+                <ScalarProperty Name="ServiceTaxID" ColumnName="ServiceTaxID" />
+                <ScalarProperty Name="InspectionUID" ColumnName="InspectionUID" />
+                <ScalarProperty Name="TransactionsListSent_UID" ColumnName="TransactionsListSent_UID" />
+                <ScalarProperty Name="VATCategoryID" ColumnName="VATCategoryID" />
+                <ScalarProperty Name="BalanceRejectedQty" ColumnName="BalanceRejectedQty" />
+                <ScalarProperty Name="CSTID" ColumnName="CSTID" />
+                <ScalarProperty Name="VATID" ColumnName="VATID" />
+                <ScalarProperty Name="HECessID" ColumnName="HECessID" />
+                <ScalarProperty Name="CessID" ColumnName="CessID" />
+                <ScalarProperty Name="EDID" ColumnName="EDID" />
+                <ScalarProperty Name="StockValue" ColumnName="StockValue" />
+                <ScalarProperty Name="IsEDApplicable" ColumnName="IsEDApplicable" />
+                <ScalarProperty Name="IsVATApplicable" ColumnName="IsVATApplicable" />
+                <ScalarProperty Name="HECessAmount" ColumnName="HECessAmount" />
+                <ScalarProperty Name="HECessPer" ColumnName="HECessPer" />
+                <ScalarProperty Name="IsEDIncluded" ColumnName="IsEDIncluded" />
+                <ScalarProperty Name="RefDocumentTypeId" ColumnName="RefDocumentTypeId" />
+                <ScalarProperty Name="ParentTransactionsList_UID" ColumnName="ParentTransactionsList_UID" />
+                <ScalarProperty Name="WarrantyUpto" ColumnName="WarrantyUpto" />
+                <ScalarProperty Name="PartyMItemsMPrice_UID" ColumnName="PartyMItemsMPrice_UID" />
+                <ScalarProperty Name="CommissionPer" ColumnName="CommissionPer" />
+                <ScalarProperty Name="CommissionM_UID" ColumnName="CommissionM_UID" />
+                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+                <ScalarProperty Name="ConversionUOM_Qty" ColumnName="ConversionUOM_Qty" />
+                <ScalarProperty Name="ConversionUOM_Rate" ColumnName="ConversionUOM_Rate" />
+                <ScalarProperty Name="ConversionUOM_UID" ColumnName="ConversionUOM_UID" />
+                <ScalarProperty Name="WIP_AccountM_UID" ColumnName="WIP_AccountM_UID" />
+                <ScalarProperty Name="Consumption_AccountM_UID" ColumnName="Consumption_AccountM_UID" />
+                <ScalarProperty Name="Stock_AccountM_UID" ColumnName="Stock_AccountM_UID" />
+                <ScalarProperty Name="Sales_AccountM_UID" ColumnName="Sales_AccountM_UID" />
+                <ScalarProperty Name="CategoryM_UID" ColumnName="CategoryM_UID" />
+                <ScalarProperty Name="ItemsM_Tolerance" ColumnName="ItemsM_Tolerance" />
+                <ScalarProperty Name="ExciseGroupM_UID" ColumnName="ExciseGroupM_UID" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="RequiredDate" ColumnName="RequiredDate" />
+                <ScalarProperty Name="QtyReworked" ColumnName="QtyReworked" />
+                <ScalarProperty Name="QtyRejected" ColumnName="QtyRejected" />
+                <ScalarProperty Name="QtyReceived" ColumnName="QtyReceived" />
+                <ScalarProperty Name="QtyDC" ColumnName="QtyDC" />
+                <ScalarProperty Name="BalanceQty" ColumnName="BalanceQty" />
+                <ScalarProperty Name="RefTransactionsList_UID" ColumnName="RefTransactionsList_UID" />
+                <ScalarProperty Name="UOM_UID" ColumnName="UOM_UID" />
+                <ScalarProperty Name="AddlDetails" ColumnName="AddlDetails" />
+                <ScalarProperty Name="StatusM_UID" ColumnName="StatusM_UID" />
+                <ScalarProperty Name="SpecialDiscount" ColumnName="SpecialDiscount" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="SalesVolumeDiscount" ColumnName="SalesVolumeDiscount" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="ServiceTaxCessAmount" ColumnName="ServiceTaxCessAmount" />
+                <ScalarProperty Name="ServiceTaxCessPer" ColumnName="ServiceTaxCessPer" />
+                <ScalarProperty Name="ServiceTaxAmount" ColumnName="ServiceTaxAmount" />
+                <ScalarProperty Name="ServiceTaxPer" ColumnName="ServiceTaxPer" />
+                <ScalarProperty Name="OtherSalesTaxAmount" ColumnName="OtherSalesTaxAmount" />
+                <ScalarProperty Name="OtherSalesTaxPer" ColumnName="OtherSalesTaxPer" />
+                <ScalarProperty Name="SurchargeAmount" ColumnName="SurchargeAmount" />
+                <ScalarProperty Name="SurchargePer" ColumnName="SurchargePer" />
+                <ScalarProperty Name="LocalSalesTaxAmount" ColumnName="LocalSalesTaxAmount" />
+                <ScalarProperty Name="LocalSalesTaxPer" ColumnName="LocalSalesTaxPer" />
+                <ScalarProperty Name="CessAmount" ColumnName="CessAmount" />
+                <ScalarProperty Name="CessPer" ColumnName="CessPer" />
+                <ScalarProperty Name="ExciseDutyAmount" ColumnName="ExciseDutyAmount" />
+                <ScalarProperty Name="ExciseDutyPer" ColumnName="ExciseDutyPer" />
+                <ScalarProperty Name="PackingAmount" ColumnName="PackingAmount" />
+                <ScalarProperty Name="PackingPer" ColumnName="PackingPer" />
+                <ScalarProperty Name="BasicDiscountAmount" ColumnName="BasicDiscountAmount" />
+                <ScalarProperty Name="BasicDiscountPer" ColumnName="BasicDiscountPer" />
+                <ScalarProperty Name="AddAmount" ColumnName="AddAmount" />
+                <ScalarProperty Name="AddPer" ColumnName="AddPer" />
+                <ScalarProperty Name="BasicValue" ColumnName="BasicValue" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="ItemsM_UID" ColumnName="ItemsM_UID" />
+                <ScalarProperty Name="Transactions_UID" ColumnName="Transactions_UID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

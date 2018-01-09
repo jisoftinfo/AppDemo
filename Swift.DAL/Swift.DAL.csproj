@@ -75,6 +75,12 @@
     <Compile Include="SP_CustomerwiseProductList_Result.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Transaction.cs">
+      <DependentUpon>DBDemoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionsList.cs">
+      <DependentUpon>DBDemoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewCustomerDetail.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
