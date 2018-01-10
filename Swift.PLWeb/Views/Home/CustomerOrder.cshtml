@@ -101,7 +101,7 @@
                                                     <tr ng-repeat="y in x.QtyDetails  | orderBy:'y.ScheduledDate'" ng-init="$parent.x.TotQty = $parent.x.TotQty + y.Qty ">
                                                         <td><button ng-click="ProductQty_Remove(x,y)"><span class="glyphicon glyphicon-minus"></span></button></td>
                                                         <td><input type="date" ng-model="y.ScheduledDate" /></td>
-                                                        <td><input type="text" ng-model="y.Qty" /></td>
+                                                        <td><input type="text" ng-model="y.Qty" ng-change="Qty_Change()" /></td>
                                                         <td><input type="date" ng-model="y.DeliveryDate" /></td>
                                                     </tr>
                                                 </tbody>
@@ -264,6 +264,10 @@
         $scope.ProductQty_Remove = function (x, y) {
             x.QtyDetails.splice(x.QtyDetails.indexOf(y), 1);
         }
+
+        $scope.Qty_Change = function () {
+            $scope.$digest();
+        };
 
         
     });
