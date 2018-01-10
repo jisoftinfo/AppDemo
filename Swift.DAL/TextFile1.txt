@@ -1,0 +1,42 @@
+﻿Select  T.UID, T.LongDocumentNo as DocumentNo,T.DocumentDate, IM.LongItemName As ItemName
+
+			, Case When T.DocumentTypeID = 110 Then UC.AccountName Else U.AccountName End UOM
+
+			, Case When T.DocumentTypeID = 110 Then TL.ConversionUOM_Qty When T.DocumentTypeId=220 Then TL.QtyReceived Else TL.Qty End Qty	
+			
+			, TL.BalanceQty, TL.Price, T.TotalValue As GrandTotalValue, IM.UID As ItemUID, SL.Status As ProductStatus, S.Status As Status, TL.Basicvalue
+
+			, Case When T.DocumentTypeID = 110 Then (TL.TotalValue/TL.ConversionUOM_Qty)* TL.Balanceqty End TotalBalanceValue
+			
+			, Case When T.DocumentTypeID = 110 Then TL.TotalValue Else Case When T.CurrencyConversionRate=0 Then TL.TotalValue Else (T.CurrencyConversionRate * TL.TotalValue) End End TotalValue
+
+			, Case When (T.DocumentTypeID in (110, 111, 113)) Then DTM.UnderDocumentTypeID Else T.DocumentTypeID End DocumentTypeID
+			
+			, T.RefTransactions_UID, A.AccountName, T.RefDoc, T.RefDocDate, IsNull(AC.AccountName,'') As Category			
+
+            , Case When T. CurrencyConversionRate=0 Then TL.TotalValue Else (TL.Qty*TL.Price*T. CurrencyConversionRate) end INRValues  
+
+            , IsNull(C.ShortName,'') Currency		
+			
+From		Transactions T With(NoLock)        
+
+Inner join	TransactionsList TL With(NoLock) On T.UID=TL.Transactions_UID
+
+Inner join	Accountm A With(NoLock) On A.UID=T.AccountM_UID                           
+
+Inner join	Itemsm IM With(NoLock) On IM.UID=TL.ItemsM_UID                          
+
+Inner join	AccountM U With(NoLock) On U.UID=TL.UOM_UID And U.AccountTypeID = 750                
+
+Inner Join	StatusM S With(NoLock) On S.UID = T.StatusM_UID                  
+
+Inner Join	StatusM SL With(NoLock) On SL.UID = TL.StatusM_UID      
+
+Left  Join	AccountM C With(NoLock) On C.UID=T.CurrencyId  And C.AccountTypeID = 763
+
+Left Join	AccountM UC With(NoLock) On UC.UID =TL.ConversionUOM_UID And UC.AccountTypeID = 750
+
+Left Join   AccountM AC With(noLock) On AC.UID = A.GroupID And AC.AccountTypeID=140 
+
+Inner Join	DocumentTypeMBranch DTM With(NoLock) On DTM.DocumentTypeID = T.DocumentTypeID and DTM.BranchID = T.BranchID    
+

@@ -15,7 +15,7 @@ BEGIN
 			Left Join ItemsMList IML on IML.ItemsM_UID = i.UID
 			Where		P.AccountM_UID = @CustUId
 
-
+End
 
 
 CREATE VIEW [dbo].[ViewCustomerDetail]
