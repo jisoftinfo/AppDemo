@@ -17,12 +17,12 @@ namespace Swift.DAL
         public decimal UID { get; set; }
         public decimal TransactionsList_UID { get; set; }
         public System.DateTime DeliveryDate { get; set; }
-        public decimal DeliveryQty { get; set; }
-        public decimal BalanceJobCardQty { get; set; }
-        public decimal ProductionQty { get; set; }
-        public decimal DespatchedQty { get; set; }
-        public decimal OrderedQty { get; set; }
-        public decimal ReceivedQty { get; set; }
+        public Nullable<decimal> DeliveryQty { get; set; }
+        public Nullable<decimal> BalanceJobCardQty { get; set; }
+        public Nullable<decimal> ProductionQty { get; set; }
+        public Nullable<decimal> DespatchedQty { get; set; }
+        public Nullable<decimal> OrderedQty { get; set; }
+        public Nullable<decimal> ReceivedQty { get; set; }
         public int StatusM_UID { get; set; }
         public Nullable<System.DateTime> PackingDate { get; set; }
     

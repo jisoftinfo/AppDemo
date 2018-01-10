@@ -930,6 +930,7 @@
     <Content Include="Scripts\ng-table.min.js.map" />
     <Content Include="Scripts\ng-table.js.map" />
     <Content Include="Views\Home\CustomerOrder.cshtml" />
+    <Content Include="Views\Home\CustomerStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
