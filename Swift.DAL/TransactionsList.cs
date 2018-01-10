@@ -14,6 +14,12 @@ namespace Swift.DAL
     
     public partial class TransactionsList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TransactionsList()
+        {
+            this.TransactionsListDelies = new HashSet<TransactionsListDely>();
+        }
+    
         public decimal UID { get; set; }
         public decimal Transactions_UID { get; set; }
         public decimal ItemsM_UID { get; set; }
@@ -93,5 +99,7 @@ namespace Swift.DAL
         public Nullable<decimal> GRN_AccountM_UID { get; set; }
     
         public virtual Transaction Transaction { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionsListDely> TransactionsListDelies { get; set; }
     }
 }

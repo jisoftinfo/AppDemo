@@ -244,6 +244,22 @@
           <Property Name="IsAlternateBOM" Type="bit" />
           <Property Name="GRN_AccountM_UID" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="TransactionsListDely">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TransactionsList_UID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" Nullable="false" />
+          <Property Name="DeliveryQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BalanceJobCardQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ProductionQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DespatchedQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrderedQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ReceivedQty" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StatusM_UID" Type="int" Nullable="false" />
+          <Property Name="PackingDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="TransactionSlNos">
           <Key>
             <PropertyRef Name="TableName" />
@@ -309,6 +325,20 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TransactionsListDely_TransactionsList">
+          <End Role="TransactionsList" Type="Self.TransactionsList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TransactionsListDely" Type="Self.TransactionsListDely" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionsList">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="TransactionsListDely">
+              <PropertyRef Name="TransactionsList_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_CustomerwiseProductList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CustUId" Type="decimal" Mode="In" />
         </Function>
@@ -319,6 +349,7 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <EntitySet Name="StatusM" EntityType="Self.StatusM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionsList" EntityType="Self.TransactionsList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionsListDely" EntityType="Self.TransactionsListDely" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionSlNos" EntityType="Self.TransactionSlNos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ViewCustomerDetail" EntityType="Self.ViewCustomerDetail" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -347,6 +378,10 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <AssociationSet Name="FK_TransactionsList_Transactions" Association="Self.FK_TransactionsList_Transactions">
             <End Role="Transactions" EntitySet="Transactions" />
             <End Role="TransactionsList" EntitySet="TransactionsList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionsListDely_TransactionsList" Association="Self.FK_TransactionsListDely_TransactionsList">
+            <End Role="TransactionsList" EntitySet="TransactionsList" />
+            <End Role="TransactionsListDely" EntitySet="TransactionsListDely" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -443,6 +478,11 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <EntitySet Name="TransactionSlNos" EntityType="DemoModel.TransactionSlNo" />
           <EntitySet Name="DocumentTypeMLists" EntityType="DemoModel.DocumentTypeMList" />
           <EntitySet Name="StatusMs" EntityType="DemoModel.StatusM" />
+          <EntitySet Name="TransactionsListDelies" EntityType="DemoModel.TransactionsListDely" />
+          <AssociationSet Name="FK_TransactionsListDely_TransactionsList" Association="DemoModel.FK_TransactionsListDely_TransactionsList">
+            <End Role="TransactionsList" EntitySet="TransactionsLists" />
+            <End Role="TransactionsListDely" EntitySet="TransactionsListDelies" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ViewCustomerDetail">
           <Key>
@@ -504,6 +544,14 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="UOM_UID" Nullable="false" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Category_UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Sales_AccountM_UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Stock_AccountM_UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Consumption_AccountM_UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="WIP_AccountM_UID" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ConversionUOM_UID" Nullable="false" />
+          <Property Type="Int32" Name="ConversionUOM_Rate" Nullable="false" />
+          <Property Type="Int32" Name="ConversionUOM_Qty" Nullable="false" />
+          <Property Type="Decimal" Name="GRN_AccountM_UID" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
         <EntityType Name="Transaction">
           <Key>
@@ -651,6 +699,7 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Name="IsAlternateBOM" Type="Boolean" />
           <Property Name="GRN_AccountM_UID" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="Transaction" Relationship="DemoModel.FK_TransactionsList_Transactions" FromRole="TransactionsList" ToRole="Transaction" />
+          <NavigationProperty Name="TransactionsListDelies" Relationship="DemoModel.FK_TransactionsListDely_TransactionsList" FromRole="TransactionsList" ToRole="TransactionsListDely" />
         </EntityType>
         <Association Name="FK_TransactionsList_Transactions">
           <End Type="DemoModel.Transaction" Role="Transaction" Multiplicity="1" />
@@ -693,6 +742,37 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="TransactionsListDely">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="TransactionsList_UID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliveryQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BalanceJobCardQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ProductionQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DespatchedQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="OrderedQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ReceivedQty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="StatusM_UID" Type="Int32" Nullable="false" />
+          <Property Name="PackingDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TransactionsList" Relationship="DemoModel.FK_TransactionsListDely_TransactionsList" FromRole="TransactionsListDely" ToRole="TransactionsList" />
+        </EntityType>
+        <Association Name="FK_TransactionsListDely_TransactionsList">
+          <End Type="DemoModel.TransactionsList" Role="TransactionsList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DemoModel.TransactionsListDely" Role="TransactionsListDely" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionsList">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="TransactionsListDely">
+              <PropertyRef Name="TransactionsList_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -821,6 +901,14 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="UOM_UID" ColumnName="UOM_UID" />
                 <ScalarProperty Name="Category_UID" ColumnName="Category_UID" />
+                <ScalarProperty Name="Sales_AccountM_UID" ColumnName="Sales_AccountM_UID" />
+                <ScalarProperty Name="Stock_AccountM_UID" ColumnName="Stock_AccountM_UID" />
+                <ScalarProperty Name="Consumption_AccountM_UID" ColumnName="Consumption_AccountM_UID" />
+                <ScalarProperty Name="WIP_AccountM_UID" ColumnName="WIP_AccountM_UID" />
+                <ScalarProperty Name="ConversionUOM_UID" ColumnName="ConversionUOM_UID" />
+                <ScalarProperty Name="ConversionUOM_Rate" ColumnName="ConversionUOM_Rate" />
+                <ScalarProperty Name="ConversionUOM_Qty" ColumnName="ConversionUOM_Qty" />
+                <ScalarProperty Name="GRN_AccountM_UID" ColumnName="GRN_AccountM_UID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -996,6 +1084,23 @@ warning 6002: The table/view 'DBDemo.dbo.ViewCustomerDetail' does not have a pri
               <MappingFragment StoreEntitySet="StatusM">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionsListDelies">
+            <EntityTypeMapping TypeName="DemoModel.TransactionsListDely">
+              <MappingFragment StoreEntitySet="TransactionsListDely">
+                <ScalarProperty Name="PackingDate" ColumnName="PackingDate" />
+                <ScalarProperty Name="StatusM_UID" ColumnName="StatusM_UID" />
+                <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
+                <ScalarProperty Name="OrderedQty" ColumnName="OrderedQty" />
+                <ScalarProperty Name="DespatchedQty" ColumnName="DespatchedQty" />
+                <ScalarProperty Name="ProductionQty" ColumnName="ProductionQty" />
+                <ScalarProperty Name="BalanceJobCardQty" ColumnName="BalanceJobCardQty" />
+                <ScalarProperty Name="DeliveryQty" ColumnName="DeliveryQty" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="TransactionsList_UID" ColumnName="TransactionsList_UID" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
               </MappingFragment>
             </EntityTypeMapping>

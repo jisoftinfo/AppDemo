@@ -30,5 +30,13 @@ namespace Swift.DAL
         public Nullable<decimal> Price { get; set; }
         public decimal UOM_UID { get; set; }
         public decimal Category_UID { get; set; }
+        public decimal Sales_AccountM_UID { get; set; }
+        public decimal Stock_AccountM_UID { get; set; }
+        public decimal Consumption_AccountM_UID { get; set; }
+        public decimal WIP_AccountM_UID { get; set; }
+        public int ConversionUOM_UID { get; set; }
+        public int ConversionUOM_Rate { get; set; }
+        public int ConversionUOM_Qty { get; set; }
+        public Nullable<decimal> GRN_AccountM_UID { get; set; }
     }
 }

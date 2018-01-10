@@ -1,8 +1,8 @@
-﻿Create PROCEDURE [dbo].[SP_CustomerwiseProductList] 	
+﻿ALTER PROCEDURE [dbo].[SP_CustomerwiseProductList] 	
 	@CustUId As decimal(18,0)
 AS
 BEGIN
-	Select	A.AccountCode, A.AccountName, I.ItemCode, I.ItemName, I.DrawingNo, I.DrawingRevisionNo, C.ItemName  Category, U.AccountName UOM
+	Select	I.UID, I.ItemCode, I.ItemName, I.DrawingNo, I.DrawingRevisionNo,C.UID Category_UID, C.ItemName  Category, U.AccountName UOM,I.Sales_AccountM_UID,I.Stock_AccountM_UID,I.Consumption_AccountM_UID,I.WIP_AccountM_UID,752 as ConversionUOM_UID,1 as ConversionUOM_Rate,1 as ConversionUOM_Qty,I.GRN_AccountM_UID, I.UOM_UID,IML.Price
 			, P.ExciseGroupM_UID CGSTUID, P.SalesVATID SGSTUID, P.SalesCSTID IGSTUID, CGST.DutyPer CGSTPer, SGST.DutyPer SGSTPer, IGST.DutyPer IGSTPer
 			, P.DiscountPer From		PartyMItemsMPrice P
 			Inner Join	AccountM A On A.UID = P.AccountM_UID
@@ -12,9 +12,10 @@ BEGIN
 			Left Join	AccountM CGST On CGST.UID = P.ExciseGroupM_UID
 			Left Join	AccountM SGST On SGST.UID = P.SalesVATID
 			Left Join	AccountM IGST On IGST.UID = P.SalesCSTID
+			Left Join ItemsMList IML on IML.ItemsM_UID = i.UID
 			Where		P.AccountM_UID = @CustUId
 
-END
+
 
 
 CREATE VIEW [dbo].[ViewCustomerDetail]

@@ -87,6 +87,9 @@
     <Compile Include="TransactionsList.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TransactionsListDely.cs">
+      <DependentUpon>DBDemoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TransactionSlNo.cs">
       <DependentUpon>DBDemoModel.tt</DependentUpon>
     </Compile>
