@@ -39,6 +39,11 @@
                                         <th></th>
                                         <th>ItemCode</th>
                                         <th>ItemName</th>
+                                        <th>Price</th>
+                                        <th>Dis%</th>
+                                        <th>CGST%</th>
+                                        <th>SGST%</th>
+                                        <th>IGST%</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +51,11 @@
                                         <td><button ng-click="CustProductSelect (x)"><span class="glyphicon glyphicon-plus-sign"></span></button></td>
                                         <td ng-bind="x.ItemCode"></td>
                                         <td ng-bind="x.ItemName"></td>
+                                        <td ng-bind="x.Price" class="text-right"></td>
+                                        <td ng-bind="x.DiscountPer" class="text-right"></td>
+                                        <td ng-bind="x.CGSTPer" class="text-right"></td>
+                                        <td ng-bind="x.SGSTPer" class="text-right"></td>
+                                        <td ng-bind="x.IGSTPer" class="text-right"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -69,7 +79,7 @@
                                         <th></th>
                                         <th>ItemCode</th>
                                         <th>ItemName</th>
-                                        
+                                        <th>Amount</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,7 +107,34 @@
                                                 </tbody>
                                             </table>
                                         </td>
-                                        
+                                        <td>
+                                            <table class="table table-bordered">
+                                                <tr ng-init="ItemDetail=GetItemDetail(x)">
+                                                    <td>Amount [{{ItemDetail.Price}} x {{ItemDetail.Qty}}]</td>
+                                                    <td class="text-right">{{ItemDetail.Amount.toFixed(2)}}</td>
+                                                </tr>
+                                                <tr ng-show="ItemDetail.DisAmt!=0">
+                                                    <td>Discount[{{ItemDetail.DisPer}}%]</td>
+                                                    <td class="text-right">{{ItemDetail.DisAmt.toFixed(2)}}</td>
+                                                </tr>
+                                                <tr ng-show="ItemDetail.CGSTAmt!=0">
+                                                    <td>CGST[{{ItemDetail.CGSTPer}}%]</td>
+                                                    <td class="text-right">{{ItemDetail.CGSTAmt.toFixed(2)}}</td>
+                                                </tr>
+                                                <tr ng-show="ItemDetail.SGSTAmt!=0">
+                                                    <td>CGST[{{ItemDetail.SGSTPer}}%]</td>
+                                                    <td class="text-right">{{ItemDetail.SGSTAmt.toFixed(2)}}</td>
+                                                </tr>
+                                                <tr ng-show="ItemDetail.IGSTAmt!=0">
+                                                    <td>CGST[{{ItemDetail.IGSTPer}}%]</td>
+                                                    <td class="text-right" >{{ItemDetail.IGSTAmt.toFixed(2)}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <th class="text-right">{{ItemDetail.TotalAmount.toFixed(2)}}</th>
+                                                </tr>
+                                            </table>
+                                        </td>
                                     </tr>
 
                                 </tbody>
@@ -187,6 +224,36 @@
             console.log(res);
             $scope.CustProductList  = res.data;
         });
+
+        $scope.GetItemDetail = function (x) {
+            var ItemDetail = {};
+            ItemDetail.Price = x.Price;
+            var qty = 0;
+            for (var i = 0; i < x.QtyDetails.length; i++) {
+                qty = qty + x.QtyDetails[i].Qty;
+            }
+
+            ItemDetail.Qty = qty;
+            ItemDetail.Amount = ItemDetail.Price * ItemDetail.Qty;
+
+            ItemDetail.DisPer = x.DiscountPer;
+            ItemDetail.DisAmt = Number((ItemDetail.Amount * ItemDetail.DisPer / 100).toFixed(2));
+
+            ItemDetail.ItemAmount = ItemDetail.Amount - ItemDetail.DisAmt;
+
+            ItemDetail.CGSTPer = x.CGSTPer;
+            ItemDetail.CGSTAmt = Number((ItemDetail.ItemAmount * ItemDetail.CGSTPer / 100).toFixed(2));
+
+            ItemDetail.SGSTPer = x.SGSTPer;
+            ItemDetail.SGSTAmt = Number((ItemDetail.ItemAmount * ItemDetail.SGSTPer / 100).toFixed(2));
+
+            ItemDetail.IGSTPer = x.IGSTPer;
+            ItemDetail.IGSTAmt = Number((ItemDetail.ItemAmount * ItemDetail.IGSTPer / 100).toFixed(2));
+
+            ItemDetail.TotalAmount = Number((ItemDetail.ItemAmount + ItemDetail.CGSTAmt + ItemDetail.SGSTAmt + ItemDetail.IGSTAmt).toFixed(2));
+            
+            return ItemDetail;
+        };
 
         $scope.SOProductList = [];
 
