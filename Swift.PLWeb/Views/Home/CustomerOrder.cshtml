@@ -139,32 +139,15 @@
 
             var data = {
                 OrderDate: $scope.SO.OrderDate,
-                CustomerUID: $scope.SO.CustomerUID
-            };
-            $http.post('/Home/SaveTrans', data).then(function (res) {
-                console.log(res);
-                if (res.data.IsSaved == true) {
-                    $scope.SO.UID = res.data.UID;
-                    $scope.SO.OrderNo = res.data.OrderNo;                    
-                    $scope.SaveTransList(res.data.UID);
-                    alert("Saved. Order No : " + $scope.SO.OrderNo);
-                } else {
-                    alert(res.ErrMsg);
-                }
-            });
-        }
-        $scope.SaveTransList = function (TranUID) {
-            var data = {
-                CustUID: $scope.SO.CustomerUID,
-                TranUID: TranUID,
+                CustomerUID: $scope.SO.CustomerUID,
                 ItemList: [],
                 ItemQtyList: []
             };
 
-            for (var i = 0; i < $scope.SOProductList.length; i++){
+            for (var i = 0; i < $scope.SOProductList.length; i++) {
                 var Product = $scope.SOProductList[i];
                 var Item = {
-                    UID : Product.UID                    
+                    UID: Product.UID
                 };
                 data.ItemList.push(Item);
 
@@ -174,22 +157,25 @@
                         ItemUID: Product.UID,
                         ScheduledDate: q.ScheduledDate,
                         DeliveryDate: q.DeliveryDate,
-                        Qty:q.Qty
+                        Qty: q.Qty
                     };
                     data.ItemQtyList.push(ItemQty);
                 }
-
-                
             }
 
 
-            $http.post('/Home/SaveTransList', data).then(function (res) {
+            $http.post('/Home/SaveTrans', data).then(function (res) {
                 console.log(res);
                 if (res.data.IsSaved == true) {
-
+                    $scope.SO.UID = res.data.UID;
+                    $scope.SO.OrderNo = res.data.OrderNo;                    
+                    alert("Saved. Order No : " + $scope.SO.OrderNo);
+                } else {
+                    alert(res.ErrMsg);
                 }
             });
         }
+        
         $scope.SOProductSelect = function (x) {
             console.log(x);
             $scope.CustProductList.push(x);
