@@ -1,0 +1,102 @@
+﻿@model Swift.DAL.ViewCustomerDetail
+
+@{
+    ViewBag.Title = "CustomerStatus";
+}
+
+
+<div ng-app="AppDemo">
+    <div ng-controller="CustomerStatus" class="container-fluid" style="margin-top:50px">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h2>Customer Status</h2></div>
+                    <div class="panel-body">
+                        <dif class="form-inline">                            
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <input type="text" readonly class="form-control" value="@Model.AccountName">
+                                Date From : <input type="date" ng-model="DateFrom" />
+                                Date To : <input type="date" ng-model="DateTo"/>
+                                <button ng-click="ShowCustomerStatus()">Search</button>
+                            </div>                            
+                        </dif>
+                        <div id="CustomerProductList">
+
+                            <div class="input-group input-group-lg" style="margin-top:10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input type="text" class="form-control" ng-model="SearchText" placeholder="Search" />
+                            </div>
+                            <table class="table table-bordered table-hover table-striped " style="display:inline-block;overflow:auto; max-height:200px;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Date</th>
+                                        <th>ItemName</th>                                        
+                                        <th>Qty</th>                                        
+                                        <th>Status</th>  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in CustStatusList | filter : SearchText | orderBy:'-x.DocumentDate'">
+                                        <td ng-bind="x.DocumentNo"></td>
+                                        <td> {{ ShowDate(x.DocumentDate)|date : "dd/MM/yyyy" }}</td>
+                                        <td ng-bind="x.ItemName"></td>
+                                        <td ng-bind="x.Qty"></td>
+                                        <td ng-bind="x.ProductStatus"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div>Total Customer Products: {{CustStatusList.length}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+        var app = angular.module("AppDemo", []);
+
+    app.controller('CustomerStatus', function ($scope, $http) {        
+        $scope.CustomerUID = @Model.UID;
+        $scope.DateFrom = new Date();
+        $scope.DateTo = new Date();
+
+        $scope.ShowDate = function (x) {
+            var dt = new Date(parseInt(x.substr(6)));
+            return dt;
+        }
+        
+        $scope.CustStatusList = [];
+
+
+        $scope.ShowCustomerStatus = function () {
+            var data = {
+                UID: $scope.CustomerUID,
+                DateFrom: $scope.DateFrom,
+                DateTo: $scope.DateTo
+            };
+            $http.post('/Home/CustomerStatusList',data).then(function (res) {
+                console.log(res);
+                $scope.CustStatusList = res.data;
+            });
+        };
+
+        $scope.ShowCustomerStatus();
+
+    });
+
+
+
+</script>
+

@@ -42,7 +42,16 @@ namespace Swift.PLWeb.Controllers
             r.MaxJsonLength = int.MaxValue;
             return r;
         }
-        
+
+        public JsonResult CustomerStatusList(decimal UID,DateTime DateFrom, DateTime DateTo)
+        {
+            var db = new DemoEntities();
+            var lst = db.SP_CustomerwiseStatusList(UID).ToList().Where(x=> x.DocumentDate>=DateFrom && x.DocumentDate<=DateTo).ToList();
+            var r = Json(lst, JsonRequestBehavior.AllowGet);
+            r.MaxJsonLength = int.MaxValue;
+            return r;
+        }
+
         public JsonResult SaveTrans(DateTime OrderDate,decimal CustomerUID, List<COItem> ItemList, List<COItemSchedule> ItemQtyList)
         {
 
@@ -273,6 +282,13 @@ namespace Swift.PLWeb.Controllers
         public ActionResult CustomerOrder(decimal UID)
         {
             var db = new DemoEntities();            
+            var cust = db.ViewCustomerDetails.Where(x => x.UID == UID).FirstOrDefault();
+            return View(cust);
+        }
+
+        public ActionResult CustomerStatus(decimal UID)
+        {
+            var db = new DemoEntities();
             var cust = db.ViewCustomerDetails.Where(x => x.UID == UID).FirstOrDefault();
             return View(cust);
         }

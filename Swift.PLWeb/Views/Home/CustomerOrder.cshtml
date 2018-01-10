@@ -25,6 +25,9 @@
                                 <button type="button" class="btn btn-info" ng-click="SaveTrans()">
                                     <span class="glyphicon glyphicon-saved"></span> Save
                                 </button>
+                                <button type="button" class="btn btn-info" ng-click="ShowStatus()">
+                                    <span class="glyphicon glyphicon-book"></span> Status
+                                </button>
                             </div>
                         </dif>
                         <div id="CustomerProductList">
@@ -98,10 +101,10 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="y in x.QtyDetails  | orderBy:'y.ScheduledDate'" ng-init="$parent.x.TotQty = $parent.x.TotQty + y.Qty ">
+                                                    <tr ng-repeat="y in x.QtyDetails  | orderBy:'y.ScheduledDate'" >
                                                         <td><button ng-click="ProductQty_Remove(x,y)"><span class="glyphicon glyphicon-minus"></span></button></td>
                                                         <td><input type="date" ng-model="y.ScheduledDate" /></td>
-                                                        <td><input type="text" ng-model="y.Qty" ng-change="Qty_Change()" /></td>
+                                                        <td><input type="text" ng-model="y.Qty" ng-change="Qty_Change(x)" /></td>
                                                         <td><input type="date" ng-model="y.DeliveryDate" /></td>
                                                     </tr>
                                                 </tbody>
@@ -109,29 +112,29 @@
                                         </td>
                                         <td>
                                             <table class="table table-bordered">
-                                                <tr ng-init="ItemDetail=GetItemDetail(x)">
-                                                    <td>Amount [{{ItemDetail.Price}} x {{ItemDetail.Qty}}]</td>
-                                                    <td class="text-right">{{ItemDetail.Amount.toFixed(2)}}</td>
+                                                <tr>
+                                                    <td>Amount [{{x.ItemDetail.Price}} x {{x.ItemDetail.Qty}}]</td>
+                                                    <td class="text-right">{{x.ItemDetail.Amount.toFixed(2)}}</td>
                                                 </tr>
-                                                <tr ng-show="ItemDetail.DisAmt!=0">
-                                                    <td>Discount[{{ItemDetail.DisPer}}%]</td>
-                                                    <td class="text-right">{{ItemDetail.DisAmt.toFixed(2)}}</td>
+                                                <tr ng-show="x.ItemDetail.DisAmt!=0">
+                                                    <td>Discount[{{x.ItemDetail.DisPer}}%]</td>
+                                                    <td class="text-right">{{x.ItemDetail.DisAmt.toFixed(2)}}</td>
                                                 </tr>
-                                                <tr ng-show="ItemDetail.CGSTAmt!=0">
-                                                    <td>CGST[{{ItemDetail.CGSTPer}}%]</td>
-                                                    <td class="text-right">{{ItemDetail.CGSTAmt.toFixed(2)}}</td>
+                                                <tr ng-show="x.ItemDetail.CGSTAmt!=0">
+                                                    <td>CGST[{{x.ItemDetail.CGSTPer}}%]</td>
+                                                    <td class="text-right">{{x.ItemDetail.CGSTAmt.toFixed(2)}}</td>
                                                 </tr>
-                                                <tr ng-show="ItemDetail.SGSTAmt!=0">
-                                                    <td>CGST[{{ItemDetail.SGSTPer}}%]</td>
-                                                    <td class="text-right">{{ItemDetail.SGSTAmt.toFixed(2)}}</td>
+                                                <tr ng-show="x.ItemDetail.SGSTAmt!=0">
+                                                    <td>CGST[{{x.ItemDetail.SGSTPer}}%]</td>
+                                                    <td class="text-right">{{x.ItemDetail.SGSTAmt.toFixed(2)}}</td>
                                                 </tr>
-                                                <tr ng-show="ItemDetail.IGSTAmt!=0">
-                                                    <td>CGST[{{ItemDetail.IGSTPer}}%]</td>
-                                                    <td class="text-right" >{{ItemDetail.IGSTAmt.toFixed(2)}}</td>
+                                                <tr ng-show="x.ItemDetail.IGSTAmt!=0">
+                                                    <td>CGST[{{x.ItemDetail.IGSTPer}}%]</td>
+                                                    <td class="text-right" >{{x.ItemDetail.IGSTAmt.toFixed(2)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Total</th>
-                                                    <th class="text-right">{{ItemDetail.TotalAmount.toFixed(2)}}</th>
+                                                    <th class="text-right">{{x.ItemDetail.TotalAmount.toFixed(2)}}</th>
                                                 </tr>
                                             </table>
                                         </td>
@@ -258,18 +261,21 @@
         $scope.SOProductList = [];
 
         $scope.ProductQty_Insert = function(x){
-            x.QtyDetails.push({ "ScheduledDate": new Date(), Qty: 1,"DeliveryDate" : new Date()});
+            x.QtyDetails.push({ "ScheduledDate": new Date(), Qty: 1, "DeliveryDate": new Date() });
+            x.ItemDetail = $scope.GetItemDetail(x);
         }
 
         $scope.ProductQty_Remove = function (x, y) {
             x.QtyDetails.splice(x.QtyDetails.indexOf(y), 1);
         }
 
-        $scope.Qty_Change = function () {
-            $scope.$digest();
+        $scope.Qty_Change = function (x) {
+            x.ItemDetail = $scope.GetItemDetail(x);
         };
 
-        
+        $scope.ShowStatus = function () {
+            window.location = '/Home/CustomerStatus?UID=' + $scope.SO.CustomerUID;
+        }
     });
 
 

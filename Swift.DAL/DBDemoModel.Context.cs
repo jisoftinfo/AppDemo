@@ -45,5 +45,14 @@ namespace Swift.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CustomerwiseProductList_Result>("SP_CustomerwiseProductList", custUIdParameter);
         }
+    
+        public virtual ObjectResult<SP_CustomerwiseStatusList_Result> SP_CustomerwiseStatusList(Nullable<decimal> custUId)
+        {
+            var custUIdParameter = custUId.HasValue ?
+                new ObjectParameter("CustUId", custUId) :
+                new ObjectParameter("CustUId", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CustomerwiseStatusList_Result>("SP_CustomerwiseStatusList", custUIdParameter);
+        }
     }
 }
